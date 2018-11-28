@@ -18,9 +18,9 @@ import { Observable } from 'rxjs';
         return this.http.post(this.api, booking);
     }
 
-    getBookings(date: Date): Observable<HttpResponse<Booking>> {
+    getBookings(date: string): Observable<HttpResponse<Booking[]>> {
         const req =  this.api + '?date=' + date;
-        return this.http.get<Booking>(this.api, { observe: 'response' });
+        return this.http.get<Booking[]>(req, { observe: 'response' });
     }
 
   }

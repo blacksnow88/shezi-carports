@@ -1,3 +1,52 @@
-<p>
-  viewbookings works!
-</p>
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-3">View Bookings</h1>
+    <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
+    <hr class="my-4">
+    <div class="card">
+      <div class="card-header">
+          <div class="input-group mb-3 col-4">
+              <input type="date" class="form-control" placeholder="Booking Date" aria-label="Booking Date" aria-describedby="basic-addon2" [(ngModel)]="searchDate">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="viewBookings()">Search</button>
+              </div>
+            </div>
+        <div class="col-6 text-center">
+      </div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Booking #</th>
+                <th scope="col">Check In</th>
+                <th scope="col">Check Out</th>
+                <th scope="col">Registration</th>
+                <th scope="col">Discription</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Cellphone</th>
+                <th scope="col">Email</th>
+                <th scope="col">ID Number</th>
+                <th scope="col">Company</th>
+                <th scope="col">Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let booking of bookings">
+                <th scope="row">{{booking.vehicleId}}</th>
+                <td>{{booking.checkIn}}</td>
+                <td>{{booking.checkout}}</td>
+                <td>{{booking.vehicle.registration}}</td>
+                <td>{{booking.vehicle.make}} {{booking.vehicle.model}} {{booking.vehicle.color}}</td>
+                <td>{{booking.owner.title}} {{booking.owner.name}} {{booking.owner.surnname}}</td>
+                <td>{{booking.owner.cellphone}}</td>
+                <td>{{booking.owner.email}}</td>
+                <td>{{booking.owner.idNumber}}</td>
+                <td>{{booking.owner.company}}</td>
+                <td>{{booking.duration}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
