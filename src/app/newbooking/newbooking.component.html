@@ -113,11 +113,26 @@
                           <div class="">
                             <span class="input-group-text" name="owner_surname">Surname *</span>
                           </div>
-                          <input type="text" class="form-control" required name="owner_surname" [(ngModel)]="booking.owner.surname"
+                          <input type="text" class="form-control" required name="owner_surname" [(ngModel)]="booking.owner.surnname"
                             aria-describedby="owner_surname">
                         </div>
                       </div>
-                      
+                      <div class="col-4">
+                          <div class="form-group mb-3">
+                            <div class="">
+                              <span class="input-group-text" name="owner_cell">Cell phone *</span>
+                            </div>
+                            <input type="number" class="form-control" required name="owner_cell" aria-describedby="owner_cell" [(ngModel)]="booking.owner.cellphone">
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group mb-3">
+                            <div class="">
+                              <span class="input-group-text"  name="owner_email">Email *</span>
+                            </div>
+                            <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" required [(ngModel)]="booking.owner.email">
+                          </div>
+                        </div>
                       <div class="col-4">
                         <div class="form-group mb-3">
                           <div class="">
@@ -134,45 +149,28 @@
                           <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [(ngModel)]="booking.owner.company">
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="owner_cell">Cell phone *</span>
-                          </div>
-                          <input type="number" class="form-control" required name="owner_cell" aria-describedby="owner_cell" [(ngModel)]="booking.owner.cellphone">
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" required name="owner_cell">Email</span>
-                          </div>
-                          <input type="email" class="form-control" name="owner_cell" aria-describedby="owner_cell" [(ngModel)]="booking.owner.email">
-                        </div>
-                      </div>
-        
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <span>Summary of booking</span>
-              </div>
-              <div class="card-body">
-                  <span>Total Hours: {{totalHours()}}</span><br>
-                  <span>Approx. Cost: R {{randValue()}}</span><br>
-                  {{booking|json}}
-                  <p *ngIf="!!alert">
-                      <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
-                  </p>
-                </div>
-                <div class="card-footer">
-                    <div class="col-12 text-center">
-                        <button class="btn btn-success" [disabled]="bookingForm.invalname" (click)="onSubmit()" type="submit">Submit</button>
-                    </div>
+              <div class="card">
+                  <div class="card-header">
+                    <span>Summary of booking</span>
                   </div>
+                  <div class="card-body">
+                      <span>Total Hours: {{totalHours()}}</span><br>
+                      <span>Approx. Cost: R {{randValue()}}</span><br>
+                      <p *ngIf="!!alert">
+                          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+                      </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12 text-center">
+                          <p class="lead">* =  mandatory fields</p>
+                            <button class="btn btn-success" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Submit</button>
+                        </div>
+                      </div>
+                </div>
             </div>
             
           </form>

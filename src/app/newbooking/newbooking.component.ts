@@ -39,18 +39,43 @@ export class NewbookingComponent implements OnInit {
 
   ngOnInit() {
     this.titles = ['Miss', 'Mr', 'Mrs', 'Ms', 'Prof', 'Rev', 'Sir'];
+    this.initBooking();
+  }
+
+  close(alert: any) {
+    this.alert = null;
+  }
+
+  private initBooking(): void {
+    this.booking = new Booking();
+    const dateToday = new Date();
+    const dateTomorow = new Date();
+    this.booking.checkIn = this.dateToString(dateToday);
+    dateTomorow.setDate(dateTomorow.getDate() + 1);
+    this.booking.checkout = this.dateToString(dateTomorow);
+  }
+
+  private dateToString(date: Date): string {
+    const day = date.getDate();
+    const monthIndex = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const munites = date.getMinutes();
+    const datestr = `${year}-${monthIndex < 10 ?  '0' + monthIndex : monthIndex}-${day < 10 ?  '0' + day : day}T${hours < 10 ?  '0' + hours : hours}:${munites < 10 ?  '0' + munites : munites}`;
+    console.log(datestr);
+    return datestr;
   }
 
   onSubmit() {
     this.alert = null;
     this.loading = true;
     this.makebooking$.subscribe( resp => {
-      const booking: Booking = JSON.parse(resp.body);
-      this.alert = {type: 'sucess', message: ('You booking was successful!, Booking number: ' + booking.vehicleId)};
-      this.booking = new Booking();
+      const booking: Booking = resp;
+      this.alert = {type: 'success', message: 'Booking Done! \n* Booking number: ' + booking.vehicleId + '\n* Duration: ' + booking.duration};
+      this.initBooking();
     },
     error => {
-      this.alert = {type: 'danger', message: 'Something went wrong please try again later.'};
+      this.alert = {type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error) + '`'};
       console.log('erro:' + JSON.stringify(error));
   });
   }
