@@ -1,6 +1,6 @@
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-3">New Booking</h1>
+        <h1 class="display-3">Resarvation</h1>
         <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
         <hr class="my-4">
         <form #bookingForm="ngForm">
@@ -17,8 +17,8 @@
                           <div class="">
                             <label class="input-group-text" name="basic-addon1">Vehicle Check In Date and Time *</label>
                           </div>
-                          <angular2-date-picker [(ngModel)]="booking.checkIn" name="checkin" 
-                                                      [settings]="datetimesettings"></angular2-date-picker>
+                          <input type="datetime-local" class="form-control" required required name="checkIn" aria-describedby="basic-addon1"
+                            [(ngModel)]="booking.checkIn">
                         </div>
                       </div>
                       <div class="col-lg-4 col-sm-12 col-md-12">
@@ -26,9 +26,8 @@
                           <div class="">
                             <span class="input-group-text" name="basic-addon1">Vehicle Collection Date and Time *</span>
                           </div>
-                          <angular2-date-picker [(ngModel)]="booking.checkout" name="checkout" 
-                                                      [settings]="datetimesettings"></angular2-date-picker>
-                        
+                          <input type="datetime-local" class="form-control" required name="checkout" aria-describedby="basic-addon1"
+                            [(ngModel)]="booking.checkout">
                         </div>
                       </div>
                     </div>
@@ -174,8 +173,6 @@
                       </div>
                 </div>
             </div>
-            
           </form>
       </div>
-  
 </div>

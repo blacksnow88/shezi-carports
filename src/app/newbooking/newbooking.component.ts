@@ -3,6 +3,7 @@ import { Booking } from '../models/booking.model';
 import { BookingService } from '../services/booking.service';
 import { tap, map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
+import { datetimesettings } from '../utils/utils';
 
 @Component({
   selector: 'app-newbooking',
@@ -18,6 +19,9 @@ export class NewbookingComponent implements OnInit {
   makebooking$: Observable<any>;
   _totalHours: number;
   _randValue: number;
+  customerExists: boolean;
+
+  datetimesettings: any  = datetimesettings;
 
   constructor(private bookingService: BookingService) {
     this.makebooking$ = this.bookingService.makeBooking(this.booking).pipe(tap(() => this.loading = false));
