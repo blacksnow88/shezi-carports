@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/scss/bootstrap-reboot';
-@import '~bootstrap/scss/bootstrap-grid';
 @import '~bootstrap/scss/bootstrap';
+@import 'intl-tel-input/build/css/intlTelInput.css';
 
 .ng-valid[required],
 .ng-valid.required {

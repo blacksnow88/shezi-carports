@@ -11,7 +11,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class NewbookingComponent implements OnInit {
 
-  booking: Booking = new Booking();
+  booking: Booking;
   titles: string[];
   alert: any;
   loading: boolean;
@@ -75,7 +75,7 @@ export class NewbookingComponent implements OnInit {
       this.initBooking();
     },
     error => {
-      this.alert = {type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error) + '`'};
+      this.alert = {type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`'};
       console.log('erro:' + JSON.stringify(error));
   });
   }

@@ -12,7 +12,7 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-6">
+                      <div class="col-lg-4 col-sm-12 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <label class="input-group-text" name="basic-addon1">Vehicle Check In Date and Time *</label>
@@ -21,7 +21,7 @@
                             [(ngModel)]="booking.checkIn">
                         </div>
                       </div>
-                      <div class="col-6">
+                      <div class="col-lg-4 col-sm-12 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="basic-addon1">Vehicle Collection Date and Time *</span>
@@ -41,7 +41,7 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-3">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="vehicle_reg">Registration *</span>
@@ -50,7 +50,7 @@
                             aria-describedby="vehicle_reg">
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="basic-addon1">Make</span>
@@ -59,7 +59,7 @@
                             aria-describedby="vehicle_make">
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="vehicle_model">Model</span>
@@ -68,7 +68,7 @@
                             aria-describedby="vehicle_model">
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="vehicle_color">Colour</span>
@@ -89,7 +89,7 @@
                   <div class="card-body">
         
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-lg-3 col-md-12">
                             <div class="form-group mb-3">
                               <div class="">
                                 <span class="input-group-text" name="basic-addon1">Title *</span>
@@ -99,7 +99,7 @@
                                   </select>
                             </div>
                           </div>
-                      <div class="col-4">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="owner_name">Name *</span>
@@ -108,7 +108,7 @@
                             aria-describedby="owner_name">
                         </div>
                       </div>
-                      <div class="col-4">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="owner_surname">Surname *</span>
@@ -117,15 +117,15 @@
                             aria-describedby="owner_surname">
                         </div>
                       </div>
-                      <div class="col-4">
+                      <div class="col-lg-3 col-md-12">
                           <div class="form-group mb-3">
                             <div class="">
                               <span class="input-group-text" name="owner_cell">Cell phone *</span>
                             </div>
-                            <input type="number" class="form-control" required name="owner_cell" aria-describedby="owner_cell" [(ngModel)]="booking.owner.cellphone">
+                            <input type="text" class="form-control" required name="owner_cell" patttern="" aria-describedby="owner_cell" [(ngModel)]="booking.owner.cellphone">
                           </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-3 col-md-12">
                           <div class="form-group mb-3">
                             <div class="">
                               <span class="input-group-text"  name="owner_email">Email *</span>
@@ -133,7 +133,7 @@
                             <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" required [(ngModel)]="booking.owner.email">
                           </div>
                         </div>
-                      <div class="col-4">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="owner_id">Id Number</span>
@@ -141,7 +141,7 @@
                           <input type="number" class="form-control" name="owner_id" aria-describedby="owner_id" [(ngModel)]="booking.owner.idNumber">
                         </div>
                       </div>
-                      <div class="col-4">
+                      <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
                             <span class="input-group-text" name="owner_co">Company</span>
@@ -158,6 +158,7 @@
                     <span>Summary of booking</span>
                   </div>
                   <div class="card-body">
+                      <span>Rate Per Day: R 190</span><br>
                       <span>Total Hours: {{totalHours()}}</span><br>
                       <span>Approx. Cost: R {{randValue()}}</span><br>
                       <p *ngIf="!!alert">
