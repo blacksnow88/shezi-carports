@@ -47,7 +47,7 @@
                           <div class="">
                             <span class="input-group-text" name="vehicle_reg">Registration *</span>
                           </div>
-                          <input type="text" class="form-control" required name="vehicle_reg" pattern="[a-zA-Z0-9 -]+" [(ngModel)]="booking.vehicle.registration"
+                          <input type="text" class="form-control" required name="vehicle_reg" pattern="[a-zA-Z0-9 -]+" [(ngModel)]="booking.vehicle.registration" [disabled]="!editMode"
                             aria-describedby="vehicle_reg">
                         </div>
                       </div>
@@ -56,7 +56,7 @@
                           <div class="">
                             <span class="input-group-text" name="basic-addon1">Make</span>
                           </div>
-                          <input type="text" class="form-control" name="vehicle_make" [(ngModel)]="booking.vehicle.make"
+                          <input type="text" class="form-control" name="vehicle_make" [(ngModel)]="booking.vehicle.make" [disabled]="!editMode"
                             aria-describedby="vehicle_make">
                         </div>
                       </div>
@@ -65,7 +65,7 @@
                           <div class="">
                             <span class="input-group-text" name="vehicle_model">Model</span>
                           </div>
-                          <input type="text" class="form-control" name="vehicle_model" [(ngModel)]="booking.vehicle.model"
+                          <input type="text" class="form-control" name="vehicle_model" [(ngModel)]="booking.vehicle.model" [disabled]="!editMode"
                             aria-describedby="vehicle_model">
                         </div>
                       </div>
@@ -74,7 +74,7 @@
                           <div class="">
                             <span class="input-group-text" name="vehicle_color">Colour</span>
                           </div>
-                          <input type="text" class="form-control" name="vehicle_color" [(ngModel)]="booking.vehicle.color"
+                          <input type="text" class="form-control" name="vehicle_color" [(ngModel)]="booking.vehicle.color" [disabled]="!editMode"
                             aria-describedby=vehicle_color>
                         </div>
                       </div>
@@ -163,19 +163,19 @@
                 <div class="card-body row">
                   <div class="card col-lg-3 col-md-12">
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="addservice1" name="addservice" checked [value]="'none'" [disabled]="!editMode" [(ngModel)]="booking.services">
+                          <input type="radio" class="custom-control-input" id="addservice1" name="addservice" checked [value]="'none'" [disabled]="!editMode" [(ngModel)]="booking.service">
                           <label class="custom-control-label" for="addservice1">None</label>
                       </div>
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="addservice2" name="addservice" [value]="'wash'" [disabled]="!editMode" [(ngModel)]="booking.services">
+                          <input type="radio" class="custom-control-input" id="addservice2" name="addservice" [value]="'wash'" [disabled]="!editMode" [(ngModel)]="booking.service">
                           <label class="custom-control-label" for="addservice2">Wash</label>
                       </div>
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="addservice3" name="addservice" [value]="'mini valet'" [disabled]="!editMode" [(ngModel)]="booking.services">
+                          <input type="radio" class="custom-control-input" id="addservice3" name="addservice" [value]="'mini valet'" [disabled]="!editMode" [(ngModel)]="booking.service">
                           <label class="custom-control-label" for="addservice3">Mini Valet</label>
                       </div>
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="addservice4" name="addservice" [value]="'full valet'" [(ngModel)]="booking.services" [disabled]="!editMode">
+                          <input type="radio" class="custom-control-input" id="addservice4" name="addservice" [value]="'full valet'" [(ngModel)]="booking.service" [disabled]="!editMode">
                           <label class="custom-control-label" for="addservice4">Full Valet</label>
                       </div>
                   </div>

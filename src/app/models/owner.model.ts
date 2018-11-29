@@ -4,7 +4,7 @@ export class Owner {
     id: number;
     title: string;
     name: string;
-    surnname: string;
+    surname: string;
     cellphone: string;
     email: string;
     idNumber: string;

@@ -33,10 +33,10 @@ export class NewbookingComponent implements OnInit {
 
     this.titles = ['Miss', 'Mr', 'Mrs', 'Ms', 'Prof', 'Rev', 'Sir'];
     this.route.queryParams.subscribe((params) => {
-      if (!!params['action'] && params['action'] === 'checkout' ) {
+      if (!!params['action'] && params['action'] === 'checkout' && !!this.bookingService.selectedBooking) {
         this.booking = this.bookingService.selectedBooking;
         this.existing = true;
-        this.editMode = true;
+        this.editMode = false;
         console.log(`booking: ${this.booking}`);
       } else {
         this.existing = false;
