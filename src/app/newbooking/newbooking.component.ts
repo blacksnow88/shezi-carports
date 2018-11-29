@@ -4,6 +4,7 @@ import { BookingService } from '../services/booking.service';
 import { tap, map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { datetimesettings } from '../utils/utils';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-newbooking',
@@ -17,33 +18,32 @@ export class NewbookingComponent implements OnInit {
   alert: any;
   loading: boolean;
   makebooking$: Observable<any>;
-  _totalHours: number;
-  _randValue: number;
-  customerExists: boolean;
+
+  existing: boolean;
+  editMode: boolean ;
 
   datetimesettings: any  = datetimesettings;
 
-  constructor(private bookingService: BookingService) {
+  constructor(private bookingService: BookingService, private route: ActivatedRoute) {
     this.makebooking$ = this.bookingService.makeBooking(this.booking).pipe(tap(() => this.loading = false));
   }
-  randValue(): number {
-    return this.totalHours() * 190;
-  }
 
-  totalHours(): number {
-    if (!!this.booking.checkout && !!this.booking.checkIn) {
-      const checkOut = new Date(this.booking.checkout);
-      const checkIn = new Date(this.booking.checkIn);
-      const timeDiff  = checkOut.getTime() - checkIn.getTime();
-      console.log('tm:' + timeDiff);
-      return Math.ceil(timeDiff / (1000 * 3600));
-    }
-   return 0;
-  }
 
   ngOnInit() {
+
     this.titles = ['Miss', 'Mr', 'Mrs', 'Ms', 'Prof', 'Rev', 'Sir'];
-    this.initBooking();
+    this.route.queryParams.subscribe((params) => {
+      if (!!params['action'] && params['action'] === 'checkout' ) {
+        this.booking = this.bookingService.selectedBooking;
+        this.existing = true;
+        this.editMode = true;
+        console.log(`booking: ${this.booking}`);
+      } else {
+        this.existing = false;
+        this.editMode = true;
+        this.initBooking();
+      }
+  });
   }
 
   close(alert: any) {
@@ -71,16 +71,19 @@ export class NewbookingComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('data' + JSON.stringify(this.booking));
     this.alert = null;
     this.loading = true;
     this.makebooking$.subscribe( resp => {
       const booking: Booking = resp;
+      alert('Booking Captured!');
       this.alert = {type: 'success', message: 'Booking Done! \n* Booking number: ' + booking.vehicleId + '\n* Duration: ' + booking.duration};
       this.initBooking();
     },
     error => {
+      alert('Something went wrong please try again later!');
       this.alert = {type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`'};
-      console.log('erro:' + JSON.stringify(error));
+      console.log('error:' + JSON.stringify(error));
   });
   }
 }

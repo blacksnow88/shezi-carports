@@ -15,13 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NewreservationComponent } from './newreservation/newreservation.component';
 import { ViewreservationsComponent } from './viewreservations/viewreservations.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+import { InfomodalComponent } from './infomodal/infomodal.component';
 
-const appRoutes: Routes = [
-  { path: 'new/reservation', component: NewreservationComponent },
-  { path: 'new/booking', component: NewbookingComponent },
-  { path: 'view/bookings',      component: ViewbookingsComponent },
-  { path: '**', component: PagenotfoundComponent }
-];
+
 
 @NgModule({
   declarations: [
@@ -31,7 +27,8 @@ const appRoutes: Routes = [
     ViewbookingsComponent,
     PagenotfoundComponent,
     NewreservationComponent,
-    ViewreservationsComponent
+    ViewreservationsComponent,
+    InfomodalComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +36,6 @@ const appRoutes: Routes = [
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
     NgbModule,
     AngularDateTimePickerModule
   ],

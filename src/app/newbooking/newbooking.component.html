@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
     <div class="jumbotron">
         <h1 class="display-3">New Booking</h1>
         <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
@@ -95,9 +95,11 @@
                               <div class="">
                                 <span class="input-group-text" name="basic-addon1">Title *</span>
                               </div>
-                                <select class="form-control" name="owner_title" required [(ngModel)]="booking.owner.title"  aria-describedby="basic-addon1">
+                                <select class="form-control" name="owner_title" required [(ngModel)]="booking.owner.title" *ngIf="!editMode"  aria-describedby="basic-addon1">
                                     <option *ngFor="let title of titles" [value]="title">{{title}}</option>
                                   </select>
+                                  <input type="text" class="form-control" required name="owner_title" *ngIf="editMode"  [disabled]="editMode" [(ngModel)]="booking.owner.title"
+                                    aria-describedby="owner_title">
                             </div>
                           </div>
                       <div class="col-lg-3 col-md-12">
@@ -105,7 +107,7 @@
                           <div class="">
                             <span class="input-group-text" name="owner_name">Name *</span>
                           </div>
-                          <input type="text" class="form-control" required name="owner_name" [(ngModel)]="booking.owner.name"
+                          <input type="text" class="form-control" required name="owner_name" [disabled]="!editMode" [(ngModel)]="booking.owner.name"
                             aria-describedby="owner_name">
                         </div>
                       </div>
@@ -114,7 +116,7 @@
                           <div class="">
                             <span class="input-group-text" name="owner_surname">Surname *</span>
                           </div>
-                          <input type="text" class="form-control" required name="owner_surname" [(ngModel)]="booking.owner.surnname"
+                          <input type="text" class="form-control" required name="owner_surname" [disabled]="!editMode" [(ngModel)]="booking.owner.surname"
                             aria-describedby="owner_surname">
                         </div>
                       </div>
@@ -123,7 +125,7 @@
                             <div class="">
                               <span class="input-group-text" name="owner_cell">Cell phone *</span>
                             </div>
-                            <input type="text" class="form-control" required name="owner_cell" patttern="" aria-describedby="owner_cell" [(ngModel)]="booking.owner.cellphone">
+                            <input type="text" class="form-control" required name="owner_cell" patttern="" aria-describedby="owner_cell" [disabled]="!editMode" [(ngModel)]="booking.owner.cellphone">
                           </div>
                         </div>
                         <div class="col-lg-3 col-md-12">
@@ -131,7 +133,7 @@
                             <div class="">
                               <span class="input-group-text"  name="owner_email">Email *</span>
                             </div>
-                            <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" required [(ngModel)]="booking.owner.email">
+                            <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" [disabled]="!editMode" required [(ngModel)]="booking.owner.email">
                           </div>
                         </div>
                       <div class="col-lg-3 col-md-12">
@@ -139,7 +141,7 @@
                           <div class="">
                             <span class="input-group-text" name="owner_id">Id Number</span>
                           </div>
-                          <input type="number" class="form-control" name="owner_id" aria-describedby="owner_id" [(ngModel)]="booking.owner.idNumber">
+                          <input type="number" class="form-control" name="owner_id" aria-describedby="owner_id" [disabled]="!editMode" [(ngModel)]="booking.owner.idNumber">
                         </div>
                       </div>
                       <div class="col-lg-3 col-md-12">
@@ -147,7 +149,7 @@
                           <div class="">
                             <span class="input-group-text" name="owner_co">Company</span>
                           </div>
-                          <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [(ngModel)]="booking.owner.company">
+                          <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [disabled]="!editMode" [(ngModel)]="booking.owner.company">
                         </div>
                       </div>
                     </div>
@@ -155,21 +157,69 @@
                 </div>
               </div>
               <div class="card">
+                <div class="card-header">
+                  <span>4. Additional Services</span>
+                </div>
+                <div class="card-body row">
+                  <div class="card col-lg-3 col-md-12">
+                      <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="addservice1" name="addservice" checked [value]="'none'" [disabled]="!editMode" [(ngModel)]="booking.services">
+                          <label class="custom-control-label" for="addservice1">None</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="addservice2" name="addservice" [value]="'wash'" [disabled]="!editMode" [(ngModel)]="booking.services">
+                          <label class="custom-control-label" for="addservice2">Wash</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="addservice3" name="addservice" [value]="'mini valet'" [disabled]="!editMode" [(ngModel)]="booking.services">
+                          <label class="custom-control-label" for="addservice3">Mini Valet</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="addservice4" name="addservice" [value]="'full valet'" [(ngModel)]="booking.services" [disabled]="!editMode">
+                          <label class="custom-control-label" for="addservice4">Full Valet</label>
+                      </div>
+                  </div>
+                  <!-- <div class="card col-lg-3 col-md-12">
+                      <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="scratch" name="scratch" [(ngModel)]="booking.services.scratch">
+                          <label class="custom-control-label" for="scratch">Scratch Mobile</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="service" name="service" [(ngModel)]="booking.services.service">
+                          <label class="custom-control-label" for="service">Service</label>
+                      </div>
+                  </div> -->
+                  <div class="card col-lg-3 col-md-12">
+                      <span>
+                        Please Note these services are subject to additional costs.
+                      </span>
+                  </div>
+        
+                </div>
+              </div>
+              <div class="card">
                   <div class="card-header">
-                    <span>Summary of booking</span>
+                    <span>5. Where to be Parked</span>
                   </div>
                   <div class="card-body">
-                      <span>Rate Per Day: R 190</span><br>
-                      <span>Total Hours: {{totalHours()}}</span><br>
-                      <span>Approx. Cost: R {{randValue()}}</span><br>
-                      <p *ngIf="!!alert">
-                          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
-                      </p>
+                      <div class="form-group mb-3">
+                          <div class="">
+                            <span class="input-group-text" name="owner_co">Bay Number</span>
+                          </div>
+                          <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [(ngModel)]="booking.bayNumber" [disabled]="!editMode">
+                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="col-12 text-center">
+                          {{booking | json}}
                           <p class="lead">* =  mandatory fields</p>
-                            <button class="btn btn-success" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Submit</button>
+                          <p *ngIf="!!alert">
+                              <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+                          </p>
+                            <button class="btn btn-success" *ngIf="!existing && !editMode" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Book</button>
+                            <button class="btn btn-success" *ngIf="existing && !editMode" [disabled]="bookingForm.invalid" (click)="checkOut()" type="submit">Check Out</button>
+                            <button class="btn btn-success" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="updateBooking()" type="submit">Update</button>
+                            <button class="btn btn-success" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="editMode = false" type="submit">Cancel</button>
                         </div>
                       </div>
                 </div>

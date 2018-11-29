@@ -1,17 +1,23 @@
 import { Owner } from './owner.model';
 import { Vehicle } from './vehicle.model';
+import { Services } from './services.model';
 
 export class Booking {
+    bookingId: number;
     checkIn: string;
     checkout: string;
     vehicleId: number;
     owner: Owner;
     vehicle: Vehicle;
+    service: string;
     duration: string;
+    bayNumber: string;
+    isComplete: boolean;
     constructor() {
         // empty
         this.owner = new Owner();
         this.vehicle = new Vehicle();
+        this.isComplete = false;
     }
 
     private dateToString(date: Date): string {

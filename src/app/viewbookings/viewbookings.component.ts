@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Booking } from '../models/booking.model';
 import { BookingService } from '../services/booking.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewbookings',
@@ -14,7 +15,7 @@ export class ViewbookingsComponent implements OnInit {
   alert: any;
   loading: boolean;
 
-  constructor(private bookingService: BookingService) { }
+  constructor(private bookingService: BookingService, private router: Router) { }
 
   ngOnInit() {
     this.searchDate = this.dateToString(new Date());
@@ -22,15 +23,23 @@ export class ViewbookingsComponent implements OnInit {
   }
 
   viewBookings(): void {
+    this.loading = true;
     console.log('Searching: ' + this.searchDate);
     this.bookingService.getBookings(this.searchDate).subscribe( resp => {
+      this.loading = false;
       this.bookings = [... resp.body];
       this.alert = {type: 'success', message: 'Found ' + this.bookings.length + ' bookings.'};
     },
     error => {
+      this.loading = false;
       this.alert = {type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error) + '`'};
       console.log('erro:' + JSON.stringify(error));
   });
+  }
+
+  viewABooking(booking: Booking) {
+    this.bookingService.selectedBooking = booking;
+    this.router.navigate([ 'view/booking' ], {queryParams: {action: 'checkout'}});
   }
 
   private dateToString(date: Date): string {
@@ -43,5 +52,7 @@ export class ViewbookingsComponent implements OnInit {
     console.log(datestr);
     return datestr;
   }
+
+
 
 }

@@ -1,178 +1,69 @@
-<div class="container">
-    <div class="jumbotron">
-        <h1 class="display-3">Resarvation</h1>
-        <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
-        <hr class="my-4">
-        <form #bookingForm="ngForm">
-            <div class="form-group">
-              <div class="">
-                <div class="card">
-                  <div class="card-header">
-                    <span>Choose the dates for the Booking</span>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-4 col-sm-12 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <label class="input-group-text" name="basic-addon1">Vehicle Check In Date and Time *</label>
-                          </div>
-                          <input type="datetime-local" class="form-control" required required name="checkIn" aria-describedby="basic-addon1"
-                            [(ngModel)]="booking.checkIn">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-sm-12 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="basic-addon1">Vehicle Collection Date and Time *</span>
-                          </div>
-                          <input type="datetime-local" class="form-control" required name="checkout" aria-describedby="basic-addon1"
-                            [(ngModel)]="booking.checkout">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="">
-                <div class="card">
-                  <div class="card-header">
-                    <span>Vehicle Details</span>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="vehicle_reg">Registration *</span>
-                          </div>
-                          <input type="text" class="form-control" required name="vehicle_reg" pattern="[a-zA-Z0-9 -]+" [(ngModel)]="booking.vehicle.registration"
-                            aria-describedby="vehicle_reg">
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="basic-addon1">Make</span>
-                          </div>
-                          <input type="text" class="form-control" name="vehicle_make" [(ngModel)]="booking.vehicle.make"
-                            aria-describedby="vehicle_make">
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="vehicle_model">Model</span>
-                          </div>
-                          <input type="text" class="form-control" name="vehicle_model" [(ngModel)]="booking.vehicle.model"
-                            aria-describedby="vehicle_model">
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="vehicle_color">Colour</span>
-                          </div>
-                          <input type="text" class="form-control" name="vehicle_color" [(ngModel)]="booking.vehicle.color"
-                            aria-describedby=vehicle_color>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="">
-                <div class="card">
-                  <div class="card-header">
-                    <span>Owner Details</span>
-                  </div>
-                  <div class="card-body">
-        
-                    <div class="row">
-                        <div class="col-lg-3 col-md-12">
-                            <div class="form-group mb-3">
-                              <div class="">
-                                <span class="input-group-text" name="basic-addon1">Title *</span>
-                              </div>
-                                <select class="form-control" name="owner_title" required [(ngModel)]="booking.owner.title"  aria-describedby="basic-addon1">
-                                    <option *ngFor="let title of titles" [value]="title">{{title}}</option>
-                                  </select>
+<!--== Slider Area Start ==-->
+<section id="slider-area">
+    <!--== slide Item One ==-->
+    <div class="single-slide-item overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="book-a-car">
+                        <form action="index.html">
+                            <!--== Pick Up Location ==-->
+                            <div class="pickup-location book-item">
+                                <h4>PICK-UP LOCATION:</h4>
+                                <select class="custom-select">
+                                  <option selected>Select</option>
+                                  <option value="1">Dhaka</option>
+                                  <option value="2">Comilla</option>
+                                  <option value="3">Barishal</option>
+                                  <option value="3">Rangpur</option>
+                                </select>
                             </div>
-                          </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="owner_name">Name *</span>
-                          </div>
-                          <input type="text" class="form-control" required name="owner_name" [(ngModel)]="booking.owner.name"
-                            aria-describedby="owner_name">
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="owner_surname">Surname *</span>
-                          </div>
-                          <input type="text" class="form-control" required name="owner_surname" [(ngModel)]="booking.owner.surnname"
-                            aria-describedby="owner_surname">
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-12">
-                          <div class="form-group mb-3">
-                            <div class="">
-                              <span class="input-group-text" name="owner_cell">Cell phone *</span>
+                            <!--== Pick Up Location ==-->
+
+                            <!--== Pick Up Date ==-->
+                            <div class="pick-up-date book-item">
+                                <h4>PICK-UP DATE:</h4>
+                                <input id="startDate" placeholder="Pick Up Date" />
+
+                                <div class="return-car">
+                                    <h4>Return DATE:</h4>
+                                    <input id="endDate" placeholder="Return Date" />
+                                </div>
                             </div>
-                            <input type="text" class="form-control" required name="owner_cell" patttern="" aria-describedby="owner_cell" [(ngModel)]="booking.owner.cellphone">
-                          </div>
-                        </div>
-                        <div class="col-lg-3 col-md-12">
-                          <div class="form-group mb-3">
-                            <div class="">
-                              <span class="input-group-text"  name="owner_email">Email *</span>
+                            <!--== Pick Up Location ==-->
+
+                            <!--== Car Choose ==-->
+                            <div class="choose-car-type book-item">
+                                <h4>CHOOSE CAR TYPE:</h4>
+                                <select class="custom-select">
+                                  <option selected>Select</option>
+                                  <option value="1">BMW</option>
+                                  <option value="2">Audi</option>
+                                  <option value="3">Lexus</option>
+                                </select>
                             </div>
-                            <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" required [(ngModel)]="booking.owner.email">
-                          </div>
-                        </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="owner_id">Id Number</span>
-                          </div>
-                          <input type="number" class="form-control" name="owner_id" aria-describedby="owner_id" [(ngModel)]="booking.owner.idNumber">
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-12">
-                        <div class="form-group mb-3">
-                          <div class="">
-                            <span class="input-group-text" name="owner_co">Company</span>
-                          </div>
-                          <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [(ngModel)]="booking.owner.company">
-                        </div>
-                      </div>
+                            <!--== Car Choose ==-->
+
+                            <div class="book-button text-center">
+                                <button class="book-now-btn">Book Now</button>
+                            </div>
+                        </form>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div class="card">
-                  <div class="card-header">
-                    <span>Summary of booking</span>
-                  </div>
-                  <div class="card-body">
-                      <span>Rate Per Day: R 190</span><br>
-                      <span>Total Hours: {{totalHours()}}</span><br>
-                      <span>Approx. Cost: R {{randValue()}}</span><br>
-                      <p *ngIf="!!alert">
-                          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
-                      </p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="col-12 text-center">
-                          <p class="lead">* =  mandatory fields</p>
-                            <button class="btn btn-success" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Submit</button>
+
+                <div class="col-lg-7 text-right">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="slider-right-text">
+                                <h1>BOOK A CAR TODAY!</h1>
+                                <p>FOR AS LOW AS $10 A DAY PLUS 15% DISCOUNT <br> FOR OUR RETURNING CUSTOMERS</p>
+                            </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </div>
-          </form>
-      </div>
-</div>
+        </div>
+    </div>
+    <!--== slide Item One ==-->
+</section>
+<!--== Slider Area End ==-->
