@@ -18,6 +18,7 @@ export class NewbookingComponent implements OnInit {
   alert: any;
   loading: boolean;
   makebooking$: Observable<any>;
+  checkout$: Observable<any>;
 
   existing: boolean;
   editMode: boolean ;
@@ -25,7 +26,6 @@ export class NewbookingComponent implements OnInit {
   datetimesettings: any  = datetimesettings;
 
   constructor(private bookingService: BookingService, private route: ActivatedRoute) {
-    this.makebooking$ = this.bookingService.makeBooking(this.booking).pipe(tap(() => this.loading = false));
   }
 
 
@@ -71,19 +71,40 @@ export class NewbookingComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('data' + JSON.stringify(this.booking));
+    console.log('book data' + JSON.stringify(this.booking));
     this.alert = null;
     this.loading = true;
-    this.makebooking$.subscribe( resp => {
-      const booking: Booking = resp;
+    this.bookingService.makeBooking(this.booking).subscribe(resp => {
+      this.loading = false;
+      const booking: Booking = resp.body;
       alert('Booking Captured!');
-      this.alert = {type: 'success', message: 'Booking Done! \n* Booking number: ' + booking.vehicleId + '\n* Duration: ' + booking.duration};
+      this.alert = { type: 'success', message: 'Booking Done! \n* Booking number: ' + booking.vehicleId + '\n* Duration: ' + booking.duration };
       this.initBooking();
     },
-    error => {
-      alert('Something went wrong please try again later!');
-      this.alert = {type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`'};
-      console.log('error:' + JSON.stringify(error));
-  });
+      error => {
+        this.loading = false;
+        alert('Something went wrong please try again later!');
+        this.alert = { type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`' };
+        console.log('error:' + JSON.stringify(error));
+      });
+  }
+
+  checkOut() {
+    const ans = confirm('Are you sure you want to check out?');
+    if (ans === true) {
+      console.log('checkout data' + JSON.stringify(this.booking));
+      this.alert = null;
+      this.loading = true;
+      this.bookingService.checkoutBooking(this.booking.bookingId).subscribe(resp => {
+        alert('Checkout Complete, see details!');
+        this.alert = { type: 'success', message: 'Checkout Complete! \n DAYS: ' + resp.days + '\n HOURS:' + resp.hours + '\n PRICE: R ' + resp.price  };
+        //this.initBooking();
+      },
+        error => {
+          alert('Something went wrong please try again later!');
+          this.alert = { type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`' };
+          console.log('error:' + JSON.stringify(error));
+        });
+    }
   }
 }

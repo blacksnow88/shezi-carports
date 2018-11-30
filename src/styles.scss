@@ -1,35 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import 'variables';
 
 @import '~bootstrap/scss/bootstrap';
-
-@import 'assets/css/responsive.css';
-
-//Bootstrap CSS === -->
-// @import 'assets/css/bootstrap.min.css';
-// //Slicknav CSS === -->
-// @import 'assets/css/plugins/slicknav.min.css';
-// //Magnific Popup CSS === -->
-// @import 'assets/css/plugins/magnific-popup.css';
-// //Owl Carousel CSS === -->
-// //@import 'assets/css/plugins/owl.carousel.min.css';
-// //Gijgo CSS === -->
-// @import 'assets/css/plugins/gijgo.css';
-// //FontAwesome CSS === -->
-// @import 'assets/css/font-awesome.css';
-// //Theme Reset CSS === -->
-// @import 'assets/css/reset.css';
-// //Responsive CSS === -->
-// @import 'assets/css/responsive.css';
-
-@import '_style.css';
 
 
 .ng-valid[required],
 .ng-valid.required {
-  border-left: 5px solid #42a948; /* green */
+  border: 1px solid #42a948; /* green */
 }
 
 .ng-invalid:not(form) {
-  border-left: 5px solid #a94442; /* red */
+  border: 1px solid #a94442; /* red */
 }

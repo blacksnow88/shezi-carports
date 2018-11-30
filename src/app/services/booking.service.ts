@@ -12,16 +12,22 @@ import { Observable } from 'rxjs';
 
     selectedBooking: Booking;
 
+    private jsonHeaders;
     private api = 'https://carncierge.azurewebsites.net/api/Booking';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+        this.jsonHeaders = new Headers();
+        this.jsonHeaders.append('Content-Type', 'application/json');
+        this.jsonHeaders.append('accept', 'application/json');
+    }
 
-    makeBooking(booking: Booking): Observable<any> {
-        return this.http.post(this.api, booking);
+    makeBooking(booking: Booking): Observable<HttpResponse<Booking>> {
+
+        return this.http.post<Booking>(this.api, booking, {headers: this.jsonHeaders, observe: 'response'});
     }
 
     updateBooking(booking: Booking): Observable<any> {
-        return this.http.put(this.api, booking);
+        return this.http.put<Booking>(this.api, booking, {headers: this.jsonHeaders, observe: 'response'});
     }
 
     getBookings(date: string): Observable<HttpResponse<Booking[]>> {
@@ -31,7 +37,7 @@ import { Observable } from 'rxjs';
 
     checkoutBooking(bookingId: number): Observable<any> {
         const req =  `${this.api}/${bookingId}/checkout`;
-        return this.http.post(this.api, null);
+        return this.http.post(req, null);
     }
 
   }

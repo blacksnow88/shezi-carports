@@ -12,29 +12,30 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-lg-4 col-sm-12 col-md-12">
+                      <div class="col-lg-6 col-sm-12 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <label class="input-group-text" name="basic-addon1">Vehicle Check In Date and Time *</label>
+                            <label class="text-bold" name="basic-addon1">Drop Date and Time *</label>
                           </div>
-                          <angular2-date-picker [(ngModel)]="booking.checkIn" name="checkin" 
-                                                      [settings]="datetimesettings"></angular2-date-picker>
+                          <angular2-date-picker [(ngModel)]="booking.checkIn" name="checkin" *ngIf="editMode" [settings]="datetimesettings"></angular2-date-picker>
+                          <input type="text" class="form-control" required name="checkin" *ngIf="!editMode" [disabled]="true" [(ngModel)]="booking.checkIn"
+                            aria-describedby="checkin">
                         </div>
                       </div>
-                      <div class="col-lg-4 col-sm-12 col-md-12">
+                      <div class="col-lg-6 col-sm-12 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="basic-addon1">Vehicle Collection Date and Time *</span>
+                            <label class="text-bold" name="basic-addon1">Collection Date and Time *</label>
                           </div>
-                          <angular2-date-picker [(ngModel)]="booking.checkout" name="checkout" 
-                                                      [settings]="datetimesettings"></angular2-date-picker>
-                        
+                          <angular2-date-picker [(ngModel)]="booking.checkout" name="checkout" *ngIf="editMode" [settings]="datetimesettings"></angular2-date-picker>
+                          <input type="text" class="form-control" required name="checkout" *ngIf="!editMode" [disabled]="true"
+                            [(ngModel)]="booking.checkout" aria-describedby="checkout">
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                  </div>
+                  </div>
               <div class="">
                 <div class="card">
                   <div class="card-header">
@@ -45,7 +46,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="vehicle_reg">Registration *</span>
+                            <span class="text-bold" name="vehicle_reg">Registration *</span>
                           </div>
                           <input type="text" class="form-control" required name="vehicle_reg" pattern="[a-zA-Z0-9 -]+" [(ngModel)]="booking.vehicle.registration" [disabled]="!editMode"
                             aria-describedby="vehicle_reg">
@@ -54,7 +55,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="basic-addon1">Make</span>
+                            <span class="text-bold" name="basic-addon1">Make</span>
                           </div>
                           <input type="text" class="form-control" name="vehicle_make" [(ngModel)]="booking.vehicle.make" [disabled]="!editMode"
                             aria-describedby="vehicle_make">
@@ -63,7 +64,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="vehicle_model">Model</span>
+                            <span class="text-bold" name="vehicle_model">Model</span>
                           </div>
                           <input type="text" class="form-control" name="vehicle_model" [(ngModel)]="booking.vehicle.model" [disabled]="!editMode"
                             aria-describedby="vehicle_model">
@@ -72,7 +73,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="vehicle_color">Colour</span>
+                            <span class="text-bold" name="vehicle_color">Colour</span>
                           </div>
                           <input type="text" class="form-control" name="vehicle_color" [(ngModel)]="booking.vehicle.color" [disabled]="!editMode"
                             aria-describedby=vehicle_color>
@@ -93,19 +94,19 @@
                         <div class="col-lg-3 col-md-12">
                             <div class="form-group mb-3">
                               <div class="">
-                                <span class="input-group-text" name="basic-addon1">Title *</span>
+                                <span class="text-bold" name="basic-addon1">Title *</span>
                               </div>
-                                <select class="form-control" name="owner_title" required [(ngModel)]="booking.owner.title" *ngIf="!editMode"  aria-describedby="basic-addon1">
+                                <select class="form-control" name="owner_title" required [(ngModel)]="booking.owner.title" *ngIf="editMode"  aria-describedby="basic-addon1">
                                     <option *ngFor="let title of titles" [value]="title">{{title}}</option>
                                   </select>
-                                  <input type="text" class="form-control" required name="owner_title" *ngIf="editMode"  [disabled]="editMode" [(ngModel)]="booking.owner.title"
+                                  <input type="text" class="form-control" required name="owner_title" *ngIf="!editMode"  [disabled]="true" [(ngModel)]="booking.owner.title"
                                     aria-describedby="owner_title">
                             </div>
                           </div>
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="owner_name">Name *</span>
+                            <span class="text-bold" name="owner_name">Name *</span>
                           </div>
                           <input type="text" class="form-control" required name="owner_name" [disabled]="!editMode" [(ngModel)]="booking.owner.name"
                             aria-describedby="owner_name">
@@ -114,7 +115,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="owner_surname">Surname *</span>
+                            <span class="text-bold" name="owner_surname">Surname *</span>
                           </div>
                           <input type="text" class="form-control" required name="owner_surname" [disabled]="!editMode" [(ngModel)]="booking.owner.surname"
                             aria-describedby="owner_surname">
@@ -123,7 +124,7 @@
                       <div class="col-lg-3 col-md-12">
                           <div class="form-group mb-3">
                             <div class="">
-                              <span class="input-group-text" name="owner_cell">Cell phone *</span>
+                              <span class="text-bold" name="owner_cell">Cell phone *</span>
                             </div>
                             <input type="text" class="form-control" required name="owner_cell" patttern="" aria-describedby="owner_cell" [disabled]="!editMode" [(ngModel)]="booking.owner.cellphone">
                           </div>
@@ -131,7 +132,7 @@
                         <div class="col-lg-3 col-md-12">
                           <div class="form-group mb-3">
                             <div class="">
-                              <span class="input-group-text"  name="owner_email">Email *</span>
+                              <span class="text-bold"  name="owner_email">Email *</span>
                             </div>
                             <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" [disabled]="!editMode" required [(ngModel)]="booking.owner.email">
                           </div>
@@ -139,7 +140,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="owner_id">Id Number</span>
+                            <span class="text-bold" name="owner_id">Id Number</span>
                           </div>
                           <input type="number" class="form-control" name="owner_id" aria-describedby="owner_id" [disabled]="!editMode" [(ngModel)]="booking.owner.idNumber">
                         </div>
@@ -147,7 +148,7 @@
                       <div class="col-lg-3 col-md-12">
                         <div class="form-group mb-3">
                           <div class="">
-                            <span class="input-group-text" name="owner_co">Company</span>
+                            <span class="text-bold" name="owner_co">Company</span>
                           </div>
                           <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [disabled]="!editMode" [(ngModel)]="booking.owner.company">
                         </div>
@@ -158,7 +159,7 @@
               </div>
               <div class="card">
                 <div class="card-header">
-                  <span>4. Additional Services</span>
+                  <span>Additional Services</span>
                 </div>
                 <div class="card-body row">
                   <div class="card col-lg-3 col-md-12">
@@ -177,6 +178,10 @@
                       <div class="custom-control custom-radio">
                           <input type="radio" class="custom-control-input" id="addservice4" name="addservice" [value]="'full valet'" [(ngModel)]="booking.service" [disabled]="!editMode">
                           <label class="custom-control-label" for="addservice4">Full Valet</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="addservice5" name="addservice" [value]="'scratch'" [(ngModel)]="booking.service" [disabled]="!editMode">
+                          <label class="custom-control-label" for="addservice4">Scratch</label>
                       </div>
                   </div>
                   <!-- <div class="card col-lg-3 col-md-12">
@@ -199,27 +204,26 @@
               </div>
               <div class="card">
                   <div class="card-header">
-                    <span>5. Where to be Parked</span>
+                    <span>Where to be Parked</span>
                   </div>
                   <div class="card-body">
-                      <div class="form-group mb-3">
+                      <div class="form-group mb-3 col-lg-3 col-md-12">
                           <div class="">
-                            <span class="input-group-text" name="owner_co">Bay Number</span>
+                            <span class="text-bold" name="baynumber">Bay Number *</span>
                           </div>
-                          <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [(ngModel)]="booking.bayNumber" [disabled]="!editMode">
+                          <input type="text" class="form-control" required name="baynumber" aria-describedby="baynumber" [(ngModel)]="booking.bayNumber" [disabled]="!editMode">
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="col-12 text-center">
-                          {{booking | json}}
                           <p class="lead">* =  mandatory fields</p>
                           <p *ngIf="!!alert">
-                              <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+                              <ngb-alert [type]="alert.type" (close)="close(alert)"><pre>{{ alert.message }}</pre></ngb-alert>
                           </p>
-                            <button class="btn btn-success" *ngIf="!existing && !editMode" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Book</button>
-                            <button class="btn btn-success" *ngIf="existing && !editMode" [disabled]="bookingForm.invalid" (click)="checkOut()" type="submit">Check Out</button>
-                            <button class="btn btn-success" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="updateBooking()" type="submit">Update</button>
-                            <button class="btn btn-success" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="editMode = false" type="submit">Cancel</button>
+                            <button class="book-now-btn" *ngIf="!existing && editMode" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Book</button>
+                            <button class="book-now-btn" *ngIf="existing && !editMode" [disabled]="bookingForm.invalid" (click)="checkOut()" type="submit">Check Out</button>
+                            <button class="book-now-btn" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="updateBooking()" type="submit">Update</button>
+                            <button class="book-now-btn" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="editMode = false" type="submit">Cancel</button>
                         </div>
                       </div>
                 </div>

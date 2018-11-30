@@ -27,7 +27,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/css/plugins/slicknav.min.css",
+              "src/assets/css/plugins/magnific-popup.css",
+              "src/assets/css/font-awesome.css",
+              "src/assets/css/reset.css",
+              "src/_style.css",
+              "src/assets/css/responsive.css"
             ],
             "scripts": []
           },
@@ -83,9 +89,13 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "../node_modules/owl.carousel/dist/assets/owl.carousel.min.css",
+              "../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "../node_modules/owl.carousel/dist/owl.carousel.min.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
