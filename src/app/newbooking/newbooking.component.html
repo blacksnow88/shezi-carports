@@ -213,6 +213,12 @@
                           </div>
                           <input type="text" class="form-control" required name="baynumber" aria-describedby="baynumber" [(ngModel)]="booking.bayNumber" [disabled]="!editMode">
                         </div>
+                        <div class="form-group mb-3 col-lg-3 col-md-12" *ngIf="existing">
+                            <div class="">
+                              <span class="text-bold" name="baynumber">Complete?</span>
+                            </div>
+                            <input type="text" class="form-control" required name="baynumber" disabled=true aria-describedby="baynumber" [value]="booking.isComplete ? 'YES' : 'OPEN'" [disabled]="!editMode">
+                          </div>
                     </div>
                     <div class="card-footer">
                         <div class="col-12 text-center">
@@ -220,10 +226,12 @@
                           <p *ngIf="!!alert">
                               <ngb-alert [type]="alert.type" (close)="close(alert)"><pre>{{ alert.message }}</pre></ngb-alert>
                           </p>
-                            <button class="book-now-btn" *ngIf="!existing && editMode" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Book</button>
-                            <button class="book-now-btn" *ngIf="existing && !editMode" [disabled]="bookingForm.invalid" (click)="checkOut()" type="submit">Check Out</button>
-                            <button class="book-now-btn" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="updateBooking()" type="submit">Update</button>
-                            <button class="book-now-btn" *ngIf="existing && editMode" [disabled]="bookingForm.invalid" (click)="editMode = false" type="submit">Cancel</button>
+                            <button class="book-now-btn m-2" *ngIf="!existing && editMode" [disabled]="bookingForm.invalid" (click)="onSubmit()" type="submit">Book</button>
+                            <button class="book-now-btn m-2" *ngIf="existing" [disabled]="bookingForm.invalid" routerLink="/view/bookings">Back</button>
+                            <button class="book-now-btn m-2" *ngIf="existing && !editMode && !booking.isComplete" [disabled]="bookingForm.invalid" (click)="editMode = true" type="submit">Edit</button>
+                            <button class="book-now-btn m-2" *ngIf="existing && !editMode && !booking.isComplete" [disabled]="bookingForm.invalid" (click)="checkOut()" type="submit">Check Out</button>
+                            <button class="book-now-btn m-2" *ngIf="existing && editMode && !booking.isComplete" [disabled]="bookingForm.invalid" (click)="updateBooking()" type="submit">Update</button>
+                            <button class="book-now-btn m-2" *ngIf="existing && editMode && !booking.isComplete" [disabled]="bookingForm.invalid" (click)="editMode = false" type="submit">Cancel</button>
                         </div>
                       </div>
                 </div>

@@ -27,7 +27,15 @@ export class ViewbookingsComponent implements OnInit {
     console.log('Searching: ' + this.searchDate);
     this.bookingService.getBookings(this.searchDate).subscribe( resp => {
       this.loading = false;
-      this.bookings = [... resp.body];
+      this.bookings = [... resp.body].sort((a: Booking, b: Booking) => {
+        if (new Date(b.checkout) > new Date(a.checkout)) {
+            return 1;
+        }
+        if (new Date(b.checkout) < new Date(b.checkout)) {
+          return -1;
+        }
+        return 0;
+      });
       this.alert = {type: 'success', message: 'Found ' + this.bookings.length + ' bookings.'};
     },
     error => {
@@ -52,6 +60,7 @@ export class ViewbookingsComponent implements OnInit {
     console.log(datestr);
     return datestr;
   }
+
 
 
 

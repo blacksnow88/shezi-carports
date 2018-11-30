@@ -3,7 +3,7 @@ import { Booking } from '../models/booking.model';
 import { BookingService } from '../services/booking.service';
 import { tap, map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
-import { datetimesettings } from '../utils/utils';
+import { datetimesettings, deepCopy } from '../utils/utils';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -34,7 +34,8 @@ export class NewbookingComponent implements OnInit {
     this.titles = ['Miss', 'Mr', 'Mrs', 'Ms', 'Prof', 'Rev', 'Sir'];
     this.route.queryParams.subscribe((params) => {
       if (!!params['action'] && params['action'] === 'checkout' && !!this.bookingService.selectedBooking) {
-        this.booking = this.bookingService.selectedBooking;
+        this.booking = deepCopy(this.bookingService.selectedBooking);
+        this.bookingService.selectedBooking = null;
         this.existing = true;
         this.editMode = false;
         console.log(`booking: ${this.booking}`);
@@ -98,6 +99,7 @@ export class NewbookingComponent implements OnInit {
       this.bookingService.checkoutBooking(this.booking.bookingId).subscribe(resp => {
         alert('Checkout Complete, see details!');
         this.alert = { type: 'success', message: 'Checkout Complete! \n DAYS: ' + resp.days + '\n HOURS:' + resp.hours + '\n PRICE: R ' + resp.price  };
+        this.booking.isComplete = true;
         //this.initBooking();
       },
         error => {
@@ -106,5 +108,24 @@ export class NewbookingComponent implements OnInit {
           console.log('error:' + JSON.stringify(error));
         });
     }
+  }
+
+  updateBooking() {
+    console.log('book data' + JSON.stringify(this.booking));
+    this.alert = null;
+    this.loading = true;
+    this.bookingService.updateBooking(this.booking).subscribe(resp => {
+      this.loading = false;
+      const booking: Booking = resp.body;
+      alert('Booking Updated!');
+      this.alert = { type: 'success', message: 'Booking Updated! \n* Booking number: ' + booking.vehicleId + '\n* Duration: ' + booking.duration };
+      this.initBooking();
+    },
+      error => {
+        this.loading = false;
+        alert('Something went wrong please try again later!');
+        this.alert = { type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`' };
+        console.log('error:' + JSON.stringify(error));
+      });
   }
 }
