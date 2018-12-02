@@ -1,0 +1,126 @@
+<div class="container-fluid mt-5">
+    <div class="jumbotron">
+      <h1 class="display-3">View Customers</h1>
+      <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
+      <hr class="my-4">
+      <div class="card">
+        <div class="card-body">
+          <label class="text-bold" name="basic-addon1">Registraion or Cellphone</label>
+          <div class="row">
+              <div class="input-group mb-1 col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <input class="form-control text-uppercase" required placeholder="" [(ngModel)]="searchStr" #searcher="ngModel">
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <button class="btn btn-success mb-1 pull-left" type="button" [disabled]="searcher.invalid ||loading" (click)="searchCustomers()">{{loadingSearch ?
+                  'Searching...' : 'Search'}}</button>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                  <app-create-customer-modal class="pull-right" (success)="searchCustomers($event.owner.cellphone)"></app-create-customer-modal>
+              </div>
+          </div>
+          
+          <div class="input-group mb-3 col-lg-6 col-md-12" *ngIf="bookings && bookings.length > 2">
+            <div class="input-group-prepend d-none d-lg-block d-sm-none">
+              <span class="input-group-text" id="basic-addon1">Registration Filter: </span>
+            </div>
+            <input type="date" class="form-control" placeholder="Booking Date" aria-label="Booking Date" aria-describedby="basic-addon2"
+              [(ngModel)]="searchDate">
+          </div>
+          <div class="col-6 text-center">
+          </div>
+          
+          <div class="col-12">
+            <hr class="my-2">
+            <span class="card card-header">Matching Customers</span>
+            <ngx-datatable class="bootstrap" [messages]="messages" [rows]="customers" [loadingIndicator]="loadingSearch" [selected]="selectedCustomers"
+            [selectionType]="'single'" (select)='onSelect($event)'
+              [columns]="columns" [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
+              [reorderable]="reorderable">
+  
+              <ngx-datatable-column name="Customer #" prop="id" [flexGrow]="1.5">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Title" prop="title" [flexGrow]="1.5">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Name" prop="name" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Surname" prop="surname" [flexGrow]="2">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                  {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Cellphone" prop="cellphone" [flexGrow]="2">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Email" prop="email" [flexGrow]="3">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="ID Number" prop="idNumber" [flexGrow]="3">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Company" prop="Company" [flexGrow]="1.5">
+                  <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                      {{value}}
+                  </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+
+          
+          <div class="col-12" *ngIf="selectedCustomer">
+              <hr class="my-1">
+              <span class="card card-header">Customer Vehicles</span>
+              <ngx-datatable class="bootstrap" [rows]="vehicles" [loadingIndicator]="loadingVehicles" [selected]="selectedVeh"
+              [selectionType]="'single'" (select)='onSelectVeh($event)'
+                [columns]="columns" [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
+                [reorderable]="reorderable">
+    
+                <ngx-datatable-column name="Vehicle #" prop="id" [flexGrow]="1.5">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Registration" prop="registration" [flexGrow]="1.5">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Make" prop="make" [flexGrow]="2">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Model" prop="model" [flexGrow]="2">
+                  <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    {{value}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Color" prop="color" [flexGrow]="2">
+                  <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                      {{value}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="" prop="id" [flexGrow]="2" [sortable]="false">
+                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                        <app-create-booking-modal [customer]="selectedCustomer" [vehicle]="row"></app-create-booking-modal>
+                    </ng-template>
+                  </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+        </div>
+      </div>
+    </div>

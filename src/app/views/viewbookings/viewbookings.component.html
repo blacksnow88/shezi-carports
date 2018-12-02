@@ -1,0 +1,72 @@
+<div class="container-fluid mt-5">
+  <div class="jumbotron">
+    <h1 class="display-3">View Bookings</h1>
+    <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
+    <hr class="my-4">
+    <div class="card">
+      <div class="card-body">
+        <label class="text-bold" name="basic-addon1">Day for Bookings</label>
+        <div class="row">
+            <div class="input-group mb-3 col-lg-6 col-md-12">
+              <input class="form-control" required placeholder="yyyy-mm-dd" name="dc" [(ngModel)]="searchDate" ngbDatepicker #dc="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" type="button"></button>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <button class="btn btn-success mb-1" type="button" [disabled]="loading" (click)="viewBookings()">{{loading ?
+                'loading...' : 'Search'}}</button>
+            </div>
+        </div>
+        <p *ngIf="!!alert">
+            <ngb-alert [type]="alert.type" (close)="close(alert)"><pre>{{ alert.message }}</pre></ngb-alert>
+        </p>
+        
+        <div class="col-6 text-center">
+        </div>
+        <hr class="my-1">
+        <div class="col-12">
+          <ngx-datatable class="bootstrap" [messages]="messages" [rows]="bookings" [loadingIndicator]="loading"
+            [columns]="columns" [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
+            [reorderable]="reorderable">
+
+            <ngx-datatable-column name="Booking #" prop="bookingId" [flexGrow]="1.5">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                {{value}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Check In" prop="checkIn" [flexGrow]="3">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | date:'yyyy/MM/dd h:mm a'}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Check Out" prop="checkout" [flexGrow]="3">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                {{value | date:'yyyy/MM/dd h:mm a'}}
+              </ng-template>
+            </ngx-datatable-column>
+            <!-- <ngx-datatable-column name="Customer Name" prop="owner.title" [flexGrow]="3">
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{row.owner.title}} {{row.owner.name}} {{row.owner.surname}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Registration" prop="vehicle.registration" [flexGrow]="2">
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{row.vehicle.registration}}
+              </ng-template>
+            </ngx-datatable-column> -->
+            <ngx-datatable-column name="Bay #" prop="bayNumber" [flexGrow]="1">
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{row.bayNumber}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Status" prop="status" [flexGrow]="1.5">
+              <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                {{value}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -3,19 +3,23 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { NewbookingComponent } from './newbooking/newbooking.component';
-import { ViewbookingsComponent } from './viewbookings/viewbookings.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { RouterModule, Routes } from '@angular/router';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDateAdapter, NgbDateNativeAdapter, NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NewreservationComponent } from './newreservation/newreservation.component';
-import { ViewreservationsComponent } from './viewreservations/viewreservations.component';
-import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
-import { InfomodalComponent } from './infomodal/infomodal.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ApiModule, Configuration } from './Api_Module';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { ViewbookingsComponent } from './views/viewbookings/viewbookings.component';
+import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.component';
+import { NewreservationComponent } from './views/newreservation/newreservation.component';
+import { ViewreservationsComponent } from './views/viewreservations/viewreservations.component';
+import { CustomersComponent } from './views/customers/customers.component';
+import { VehicleDetailsComponent } from './views/vehicle-details/vehicle-details.component';
+import { NewCustomerDetailsComponent } from './views/new-customer-details/new-customer-details.component';
+import { CreateCustomerModalComponent } from './views/createCustomerModal/create-customer-modal.component';
+import { CreateBookingModalComponent } from './views/createBookingModal/create-booking-modal.component';
 
 
 
@@ -23,12 +27,15 @@ import { InfomodalComponent } from './infomodal/infomodal.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    NewbookingComponent,
+    CreateBookingModalComponent,
     ViewbookingsComponent,
     PagenotfoundComponent,
     NewreservationComponent,
     ViewreservationsComponent,
-    InfomodalComponent
+    CreateCustomerModalComponent,
+    CustomersComponent,
+    VehicleDetailsComponent,
+    NewCustomerDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +43,20 @@ import { InfomodalComponent } from './infomodal/infomodal.component';
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
+    ApiModule.forRoot(getApiConfig),
     NgbModule,
-    AngularDateTimePickerModule
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    NgxDatatableModule
   ],
-  providers: [],
+  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export const apiConfig = new Configuration({
+  basePath: 'https://carncierge.azurewebsites.net',
+  withCredentials: false
+});
+export function getApiConfig() {
+  return apiConfig;
+}

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NewreservationComponent } from './newreservation/newreservation.component';
-import { NewbookingComponent } from './newbooking/newbooking.component';
-import { ViewbookingsComponent } from './viewbookings/viewbookings.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { NewreservationComponent } from './views/newreservation/newreservation.component';
+import { ViewbookingsComponent } from './views/viewbookings/viewbookings.component';
+import { CustomersComponent } from './views/customers/customers.component';
+
 
 const routes: Routes = [
   { path: 'new/reservation', component: NewreservationComponent },
-  { path: 'new/booking', component: NewbookingComponent },
-  { path: 'view/booking', component: NewbookingComponent },
+  // { path: 'view/booking', component: NewbookingComponent },
   { path: 'view/bookings',      component: ViewbookingsComponent },
+  { path: 'view/customers',      component: CustomersComponent },
   { path: '**', component: NewreservationComponent }
 ];
 

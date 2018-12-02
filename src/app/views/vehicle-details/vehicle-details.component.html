@@ -1,0 +1,58 @@
+<form #vehicleForm="ngForm">
+  <div class="card">
+    <div class="card-header">
+      <span>Vehicle Details</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="vehicle_reg">Registration *</span>
+            </div>
+            <input type="text" class="form-control" required name="vehicle_reg" pattern="[a-zA-Z0-9 -]+" [(ngModel)]="vehicle.registration"
+              [disabled]="!editMode" aria-describedby="vehicle_reg">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="basic-addon1">Make</span>
+            </div>
+            <input type="text" class="form-control" name="vehicle_make" [(ngModel)]="vehicle.make" [disabled]="!editMode"
+              aria-describedby="vehicle_make">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="vehicle_model">Model</span>
+            </div>
+            <input type="text" class="form-control" name="vehicle_model" [(ngModel)]="vehicle.model" [disabled]="!editMode"
+              aria-describedby="vehicle_model">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="vehicle_color">Colour</span>
+            </div>
+            <input type="text" class="form-control" name="vehicle_color" [(ngModel)]="vehicle.color" [disabled]="!editMode"
+              aria-describedby=vehicle_color>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="col-12 text-center">
+        <p *ngIf="!!alert">
+          <ngb-alert [type]="alert.type" (close)="close(alert)">
+            <pre>{{ alert.message }}</pre>
+          </ngb-alert>
+        </p>
+        <button class="btn btn-sm btn-primary" *ngIf="(!vehicle.Id || vehicle.Id > 0) && editMode" [disabled]="vehicleForm.invalid"
+          (click)="create()" type="submit">Create</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,114 @@
+
+  <div class="card">
+    <div class="card-header">
+      <span>Customer Details</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="basic-addon1">Title *</span>
+            </div>
+            <select class="form-control" name="owner_title" required [(ngModel)]="ownerVeh.title" aria-describedby="basic-addon1">
+              <option *ngFor="let title of titles" [value]="title">{{title}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="owner_name">Name *</span>
+            </div>
+            <input type="text" class="form-control" required name="owner_name" [(ngModel)]="ownerVeh.name"
+              aria-describedby="owner_name">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="owner_surname">Surname *</span>
+            </div>
+            <input type="text" class="form-control" required name="owner_surname" [(ngModel)]="ownerVeh.surname"
+              aria-describedby="owner_surname">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="owner_cell">Cell phone *</span>
+            </div>
+            <input type="text" class="form-control" required name="owner_cell" patttern="" aria-describedby="owner_cell"
+              [(ngModel)]="ownerVeh.cellphone">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="owner_email">Email *</span>
+            </div>
+            <input type="email" class="form-control" name="owner_email" aria-describedby="owner_email" required
+              [(ngModel)]="ownerVeh.email">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="owner_id">Id Number</span>
+            </div>
+            <input type="number" class="form-control" name="owner_id" aria-describedby="owner_id" [(ngModel)]="ownerVeh.idNumber">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="owner_co">Company</span>
+            </div>
+            <input type="text" class="form-control" name="owner_co" aria-describedby="owner_co" [(ngModel)]="ownerVeh.company">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <span>Vehicle Details</span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="vehicle_reg">Registration *</span>
+            </div>
+            <input type="text" class="form-control" required name="vehicle_reg" pattern="[a-zA-Z0-9 -]+" [(ngModel)]="ownerVeh.registration"
+              aria-describedby="vehicle_reg">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="basic-addon1">Make</span>
+            </div>
+            <input type="text" class="form-control" name="vehicle_make" [(ngModel)]="ownerVeh.make" aria-describedby="vehicle_make">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="vehicle_model">Model</span>
+            </div>
+            <input type="text" class="form-control" name="vehicle_model" [(ngModel)]="ownerVeh.model" aria-describedby="vehicle_model">
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-group mb-3">
+            <div class="">
+              <span class="text-bold" name="vehicle_color">Colour</span>
+            </div>
+            <input type="text" class="form-control" name="vehicle_color" [(ngModel)]="ownerVeh.color" aria-describedby=vehicle_color>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
