@@ -45,16 +45,16 @@
                 {{value | date:'yyyy/MM/dd h:mm a'}}
               </ng-template>
             </ngx-datatable-column>
-            <!-- <ngx-datatable-column name="Customer Name" prop="owner.title" [flexGrow]="3">
+            <ngx-datatable-column name="Customer Name" prop="title" [flexGrow]="3">
               <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                {{row.owner.title}} {{row.owner.name}} {{row.owner.surname}}
+                {{row.title}} {{row.name}} {{row.surname}}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Registration" prop="vehicle.registration" [flexGrow]="2">
               <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                {{row.vehicle.registration}}
+                {{row.registration}}
               </ng-template>
-            </ngx-datatable-column> -->
+            </ngx-datatable-column>
             <ngx-datatable-column name="Bay #" prop="bayNumber" [flexGrow]="1">
               <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                 {{row.bayNumber}}
@@ -65,6 +65,13 @@
                 {{value}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="" prop="id" [flexGrow]="1.5" [sortable]="false">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <button type="button" *ngIf="row.status &&  row.status.toLowerCase() === 'newbooking'" class="btn btn-success btn-sm" (click)="checkin(row)">Check In</button>
+                 <app-checkout-booking-modal *ngIf="row.status && row.status.toLowerCase() === 'checkedin'" [booking]="row"></app-checkout-booking-modal>
+                 <button type="button" *ngIf="row.status && row.status.toLowerCase() === 'invoiced'" class="btn btn-success btn-sm" (click)="printInvoice(row.id)">Print</button>
+                </ng-template>
+              </ngx-datatable-column>
           </ngx-datatable>
         </div>
       </div>

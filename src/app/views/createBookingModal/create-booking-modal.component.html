@@ -18,21 +18,21 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                   <div class="form-group mb-3">
                     <label class="text-bold" name="basic-addon1">Drop Off Date *</label>
                     <div class="input-group">
-                      <input class="form-control" required placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dropDate"
-                        ngbDatepicker [dayTemplate]="customDay" [markDisabled]="!editMode" #dp="ngbDatepicker">
+                      <input class="form-control" required placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dropDate" type="date"
+                        ngbDatepicker container='body' #dp="ngbDatepicker">
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dp.toggle()" type="button"></button>
+                        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dp.toggle()" disabled="true" type="button"></button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-6">
                   <div class="form-group mb-3">
-                    <label class="text-bold" name="basic-addon1">Drop Off Time *</label>
+                    <label class="text-bold" name="basic-addon1">Time *</label>
                     <div class="input-group">
                       <select class="form-control" name="dropTime" required [(ngModel)]="dropTime" 
                         aria-describedby="basic-addon1">
@@ -43,21 +43,21 @@
 
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                   <div class="form-group mb-3">
                     <label class="text-bold" name="basic-addon1">Collection Date *</label>
                     <div class="input-group">
-                      <input class="form-control" required placeholder="yyyy-mm-dd" name="dc" [(ngModel)]="collectionDate"
-                        ngbDatepicker [dayTemplate]="customDay" [markDisabled]="!editMode" #dc="ngbDatepicker">
+                      <input class="form-control" required placeholder="yyyy-mm-dd" name="dc" [(ngModel)]="collectionDate" type="date"
+                        ngbDatepicker container='' #dc="ngbDatepicker">
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" type="button"></button>
+                        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" disabled="true" type="button"></button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-6">
                   <div class="form-group mb-3">
-                    <label class="text-bold" name="basic-addon1">Collection Time *</label>
+                    <label class="text-bold" name="basic-addon1">Time *</label>
                     <div class="input-group">
                       <select class="form-control" name="collectionTime" required [(ngModel)]="collectionTime"
                          aria-describedby="basic-addon1">
@@ -147,13 +147,13 @@
                   <input type="text" class="form-control" name="baynumber" aria-describedby="baynumber" [(ngModel)]="booking.bayNumber"
                     >
                 </div>
-                <!-- <div class="form-group" *ngIf="existing">
+                <div class="form-group">
                   <div class="">
-                    <span class="text-bold" name="baynumber">Status</span>
+                    <span class="text-bold" name="baynumber">Notes</span>
                   </div>
-                  <input type="text" class="form-control" required name="baynumber" disabled=true aria-describedby="baynumber"
-                    [value]="booking.status" [disabled]="true">
-                </div> -->
+                  <textarea type="text" class="form-control" name="notes" aria-describedby="notes"
+                  [(ngModel)]="booking.notes"></textarea>
+                </div>
               </div>
             </div>
 

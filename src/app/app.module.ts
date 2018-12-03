@@ -20,6 +20,7 @@ import { VehicleDetailsComponent } from './views/vehicle-details/vehicle-details
 import { NewCustomerDetailsComponent } from './views/new-customer-details/new-customer-details.component';
 import { CreateCustomerModalComponent } from './views/createCustomerModal/create-customer-modal.component';
 import { CreateBookingModalComponent } from './views/createBookingModal/create-booking-modal.component';
+import { CheckOutBookingModalComponent } from './views/checkOutBookingModal/checkout-booking-modal.component';
 
 
 
@@ -35,7 +36,8 @@ import { CreateBookingModalComponent } from './views/createBookingModal/create-b
     CreateCustomerModalComponent,
     CustomersComponent,
     VehicleDetailsComponent,
-    NewCustomerDetailsComponent
+    NewCustomerDetailsComponent,
+    CheckOutBookingModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,7 @@ import { CreateBookingModalComponent } from './views/createBookingModal/create-b
 })
 export class AppModule { }
 export const apiConfig = new Configuration({
-  basePath: 'https://carncierge.azurewebsites.net',
+  basePath: 'https://carncierge-uat.azurewebsites.net',
   withCredentials: false
 });
 export function getApiConfig() {

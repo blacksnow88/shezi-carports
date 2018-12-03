@@ -54,6 +54,24 @@ export class ViewbookingsComponent implements OnInit {
     this.router.navigate([ 'view/booking' ], {queryParams: {action: 'checkout'}});
   }
 
+  checkin(booking) {
+    this.loading = true;
+    const conf = confirm(`Do you want to Check In this booking?
+    ${booking.title} ${booking.name} ${booking.surname} - ${booking.registration}`);
+    if (conf === true) {
+      this.bookingService.checkIn(booking.bookingId).subscribe(resp => {
+        this.loading = false;
+        alert('Check In Complete');
+        this.viewBookings();
+      },
+        error => {
+          this.loading = false;
+          alert('Something went wrong please try again later!');
+          console.log('error:' + JSON.stringify(error));
+        });
+    }
+  }
+
   private dateToString(date: Date): string {
     const day = date.getDate();
     const monthIndex = date.getMonth() + 1;

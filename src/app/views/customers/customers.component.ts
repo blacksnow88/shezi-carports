@@ -32,6 +32,7 @@ export class CustomersComponent implements OnInit {
   }
 
   searchCustomers(searchStr?: string) {
+    this.vehicles = [];
     if (!!searchStr) {
       this.searchStr = searchStr;
     }
@@ -42,7 +43,11 @@ export class CustomersComponent implements OnInit {
     },
       error => {
         this.loadingSearch = false;
-        alert('Something went wrong please try again later!');
+        if (error['status'] === 404) {
+          alert('Customer Not Found!');
+        } else {
+          alert('Something went wrong please try again later!');
+        }
         console.log('error:' + JSON.stringify(error));
       });
   }
@@ -58,7 +63,11 @@ export class CustomersComponent implements OnInit {
     },
       error => {
         this.loadingVehicles = false;
-        alert('Something went wrong please try again later!');
+        if (error['status'] === 404) {
+          alert('Vehicle(S) Not Found!');
+        } else {
+          alert('Something went wrong please try again later!');
+        }
         console.log('error:' + JSON.stringify(error));
       });
   }
