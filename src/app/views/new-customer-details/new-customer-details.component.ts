@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CreateCustomer, CustomersService, FindCustomerResult, UpdateCustomer, CreateVehicle, VehiclesService } from 'src/app/Api_Module';
+import { GetVehicleResult, CreateCustomer } from 'src/app/Api_Module';
 
 @Component({
   selector: 'app-new-customer-details',
@@ -8,7 +8,7 @@ import { CreateCustomer, CustomersService, FindCustomerResult, UpdateCustomer, C
 export class NewCustomerDetailsComponent implements OnInit {
 
 
-  @Input() ownerVeh: FindCustomerResult;
+  @Input() ownerVeh: CreateCustomer;
   titles: string[];
 
   constructor() { }

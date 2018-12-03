@@ -8,10 +8,10 @@
           <label class="text-bold" name="basic-addon1">Registraion or Cellphone</label>
           <div class="row">
               <div class="input-group mb-1 col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                <input class="form-control text-uppercase" required placeholder="" [(ngModel)]="searchStr" #searcher="ngModel">
+                <input class="form-control text-uppercase" required placeholder="" [(ngModel)]="searchStr" #searcher="ngModel" (key.enter)="searchCustomers()">
               </div>
               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <button class="btn btn-success mb-1 pull-left" type="button" [disabled]="searcher.invalid ||loading" (click)="searchCustomers()">{{loadingSearch ?
+                <button class="btn btn-success mb-1 pull-left" type="button" [disabled]="searcher.invalid ||loadingSearch" (click)="searchCustomers()">{{loadingSearch ?
                   'Searching...' : 'Search'}}</button>
               </div>
               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -19,7 +19,7 @@
               </div>
           </div>
           
-          <div class="input-group mb-3 col-lg-6 col-md-12" *ngIf="bookings && bookings.length > 2">
+          <!-- <div class="input-group mb-3 col-lg-6 col-md-12" *ngIf="bookings && bookings.length > 2">
             <div class="input-group-prepend d-none d-lg-block d-sm-none">
               <span class="input-group-text" id="basic-addon1">Registration Filter: </span>
             </div>
@@ -27,15 +27,15 @@
               [(ngModel)]="searchDate">
           </div>
           <div class="col-6 text-center">
-          </div>
+          </div> -->
           
           <div class="col-12">
             <hr class="my-2">
             <span class="card card-header">Matching Customers</span>
             <ngx-datatable class="bootstrap" [messages]="messages" [rows]="customers" [loadingIndicator]="loadingSearch" [selected]="selectedCustomers"
             [selectionType]="'single'" (select)='onSelect($event)'
-              [columns]="columns" [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
-              [reorderable]="reorderable">
+              [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
+              [reorderable]="true">
   
               <ngx-datatable-column name="Customer #" prop="id" [flexGrow]="1.5">
                 <ng-template let-value="value" ngx-datatable-cell-template>
