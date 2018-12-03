@@ -32,7 +32,7 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
-    <button class="btn btn-primary" [disabled]="checkoutForm.invalid || loading" (click)="checkout()" type="submit">{{loading
+    <button class="btn btn-success" [disabled]="checkoutForm.invalid || loading" (click)="checkout()" type="submit">{{loading
       ? 'Please wait..':'Check Out'}}</button>
   </div>
 </ng-template>

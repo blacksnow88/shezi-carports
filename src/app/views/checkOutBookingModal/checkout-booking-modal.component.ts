@@ -43,7 +43,7 @@ export class CheckOutBookingModalComponent implements OnInit {
     this.bookingService.checkout({ id: this.booking.bookingId, paymentMethod: this.paymentMethod }).subscribe(resp => {
       this.loading = false;
       alert('Checkout Complete');
-      this.booking.isComplete = true;
+      this.modalService.dismissAll();
     },
       error => {
         this.loading = false;
