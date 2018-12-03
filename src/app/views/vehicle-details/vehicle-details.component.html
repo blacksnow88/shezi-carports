@@ -50,7 +50,7 @@
             <pre>{{ alert.message }}</pre>
           </ngb-alert>
         </p>
-        <button class="btn btn-sm btn-primary" *ngIf="(!vehicle.Id || vehicle.Id > 0) && editMode" [disabled]="vehicleForm.invalid"
+        <button class="btn btn-sm btn-primary" *ngIf="(!vehicle['id']) && editMode" [disabled]="vehicleForm.invalid"
           (click)="create()" type="submit">Create</button>
       </div>
     </div>
