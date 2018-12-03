@@ -24,6 +24,7 @@ export class CreateCustomerModalComponent implements OnInit {
 
   openLg(content) {
     this.modalService.open(content, { size: 'lg' });
+    this.ownerVeh = { title: '', name: '', surname: '', email: '', cellphone: '', registration: '' };
   }
 
   create() {
@@ -31,7 +32,8 @@ export class CreateCustomerModalComponent implements OnInit {
       this.loading = false;
       this.customerId = resp;
       this.success.emit({customerId: this.customerId, owner: this.ownerVeh});
-      this.alert = { type: 'success', message: 'Created! \n* customer number: ' + this.customerId };
+      // this.alert = { type: 'success', message: 'Created! \n* customer number: ' + this.customerId };
+      this.modalService.dismissAll('success');
     },
       error => {
         this.loading = false;

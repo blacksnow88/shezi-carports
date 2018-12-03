@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-newreservation',
-  templateUrl: './newreservation.component.html',
-  styleUrls: ['./newreservation.component.scss']
+  templateUrl: './home.component.html',
 })
-export class NewreservationComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
   constructor() { }
 

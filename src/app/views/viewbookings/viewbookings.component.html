@@ -1,7 +1,6 @@
 <div class="container-fluid mt-5">
   <div class="jumbotron">
-    <h1 class="display-3">View Bookings</h1>
-    <p class="lead">Your VALET Parking at OR Tambo International Airport.</p>
+    <h1 class="display-4">View Bookings</h1>
     <hr class="my-4">
     <div class="card">
       <div class="card-body">
@@ -13,19 +12,23 @@
                 <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" type="button"></button>
               </div>
             </div>
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-2 col-md-12">
               <button class="btn btn-success mb-1" type="button" [disabled]="loading" (click)="viewBookings()">{{loading ?
                 'loading...' : 'Search'}}</button>
             </div>
+            <div class="input-group mb-3 col-lg-4 col-md-12" *ngIf="cache && cache.length > 1">
+                <input class="form-control" required placeholder="filter by name, surname and registration" name="filter" [(ngModel)]="filtervalue" (keyup)='updateFilter()'>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary fa fa-close" [disabled]="!(filtervalue && filtervalue.length)" (click)="clearFilter()" type="button"></button>
+                </div>
+              </div>
         </div>
-        <p *ngIf="!!alert">
-            <ngb-alert [type]="alert.type" (close)="close(alert)"><pre>{{ alert.message }}</pre></ngb-alert>
-        </p>
         
         <div class="col-6 text-center">
         </div>
         <hr class="my-1">
         <div class="col-12">
+            
           <ngx-datatable class="bootstrap" [messages]="messages" [rows]="bookings" [loadingIndicator]="loading" [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
             [reorderable]="true">
 
@@ -68,7 +71,7 @@
                 <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                 <button type="button" *ngIf="row.status &&  row.status.toLowerCase() === 'newbooking'" class="btn btn-success btn-sm" (click)="checkin(row)">Check In</button>
                  <app-checkout-booking-modal *ngIf="row.status && row.status.toLowerCase() === 'checkedin'" [booking]="row"></app-checkout-booking-modal>
-                 <button type="button" *ngIf="row.status && row.status.toLowerCase() === 'invoiced'" class="btn btn-success btn-sm" (click)="printInvoice(row.id)">Print</button>
+                 <button type="button" *ngIf="row.status && row.status.toLowerCase() === 'invoiced'" class="btn btn-success btn-sm" (click)="printInvoice(row.bookingId)">Print</button>
                 </ng-template>
               </ngx-datatable-column>
           </ngx-datatable>

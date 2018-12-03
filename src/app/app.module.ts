@@ -13,7 +13,6 @@ import { ApiModule, Configuration } from './Api_Module';
 import { NavbarComponent } from './views/navbar/navbar.component';
 import { ViewbookingsComponent } from './views/viewbookings/viewbookings.component';
 import { PagenotfoundComponent } from './views/pagenotfound/pagenotfound.component';
-import { NewreservationComponent } from './views/newreservation/newreservation.component';
 import { ViewreservationsComponent } from './views/viewreservations/viewreservations.component';
 import { CustomersComponent } from './views/customers/customers.component';
 import { VehicleDetailsComponent } from './views/vehicle-details/vehicle-details.component';
@@ -21,6 +20,8 @@ import { NewCustomerDetailsComponent } from './views/new-customer-details/new-cu
 import { CreateCustomerModalComponent } from './views/createCustomerModal/create-customer-modal.component';
 import { CreateBookingModalComponent } from './views/createBookingModal/create-booking-modal.component';
 import { CheckOutBookingModalComponent } from './views/checkOutBookingModal/checkout-booking-modal.component';
+import { UserLoginComponent } from './views/user-login/user-login.component';
+import { HomeComponent } from './views/newreservation/home.component';
 
 
 
@@ -31,13 +32,15 @@ import { CheckOutBookingModalComponent } from './views/checkOutBookingModal/chec
     CreateBookingModalComponent,
     ViewbookingsComponent,
     PagenotfoundComponent,
-    NewreservationComponent,
+    UserLoginComponent,
     ViewreservationsComponent,
     CreateCustomerModalComponent,
     CustomersComponent,
     VehicleDetailsComponent,
     NewCustomerDetailsComponent,
-    CheckOutBookingModalComponent
+    CheckOutBookingModalComponent,
+    UserLoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

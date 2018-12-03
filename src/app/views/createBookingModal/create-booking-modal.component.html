@@ -187,8 +187,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
-    <button class="btn btn-primary" [disabled]="bookingForm.invalid || loading"
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    <button class="btn btn-success" [disabled]="bookingForm.invalid || loading"
       (click)="onSubmit()" type="submit">{{loading ? 'Please wait..':'Create'}}</button>
   </div>
 </ng-template>

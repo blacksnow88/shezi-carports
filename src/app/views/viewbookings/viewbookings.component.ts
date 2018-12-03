@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BookingModel, BookingService } from 'src/app/Api_Module';
 import { MediatorService } from 'src/app/services/mediator.service';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-viewbookings',
@@ -11,7 +12,11 @@ import { MediatorService } from 'src/app/services/mediator.service';
 })
 export class ViewbookingsComponent implements OnInit {
 
+  @ViewChild(DatatableComponent) table: DatatableComponent;
+  filtervalue;
+
   bookings: BookingModel[] = [];
+  cache: BookingModel[] = [];
   searchDate: Date;
   alert: any;
   loading: boolean;
@@ -30,17 +35,18 @@ export class ViewbookingsComponent implements OnInit {
     console.log('Searching: ' + this.searchDate);
     this.bookingService.getBookings(this.dateToString(this.searchDate)).subscribe( resp => {
       this.loading = false;
-      this.bookings = [ ... resp];
-      // .sort((a: BookingModel, b: BookingModel) => {
-      //   if (new Date(b.checkout) > new Date(a.checkout)) {
-      //       return 1;
-      //   }
-      //   if (new Date(b.checkout) < new Date(b.checkout)) {
-      //     return -1;
-      //   }
-      //   return 0;
-      // });
-      // this.alert = {type: 'success', message: 'Found ' + this.bookings.length + ' bookings.'};
+      this.cache = [ ... resp];
+      this.bookings = [ ... resp]
+      .sort((a: BookingModel, b: BookingModel) => {
+        if (new Date(b.checkout) > new Date(a.checkout)) {
+            return 1;
+        }
+        if (new Date(b.checkout) < new Date(b.checkout)) {
+          return -1;
+        }
+        return 0;
+      });
+      this.alert = {type: 'success', message: 'Found ' + this.bookings.length + ' bookings.'};
     },
     error => {
       this.loading = false;
@@ -72,6 +78,13 @@ export class ViewbookingsComponent implements OnInit {
     }
   }
 
+  printInvoice(bookingId) {
+
+    let popupWin;
+    popupWin = window.open(`${this.bookingService.configuration.basePath}/api/Booking/${bookingId}/invoice`,
+    '_blank', 'top=0,left=0,height=100%,width=auto');
+}
+
   private dateToString(date: Date): string {
     const day = date.getDate();
     const monthIndex = date.getMonth() + 1;
@@ -81,6 +94,31 @@ export class ViewbookingsComponent implements OnInit {
     const datestr = `${year}-${monthIndex < 10 ?  '0' + monthIndex : monthIndex}-${day < 10 ?  '0' + day : day}`;
     console.log(datestr);
     return datestr;
+  }
+
+  updateFilter(event) {
+    const val = this.filtervalue;
+
+    if (val) {
+        // filter our data
+    const temp = this.bookings.filter(function(d) {
+      return (d.registration && d.registration.toLowerCase().indexOf(val) !== -1) ||
+      (d.name && d.name.toLowerCase().indexOf(val) !== -1) ||
+      (d.surname && d.surname.toLowerCase().indexOf(val) !== -1) || !val;
+    });
+
+    // update the rows
+    this.bookings = temp;
+    } else {
+      this.bookings = [... this.cache];
+    }
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+
+  clearFilter() {
+    this.filtervalue = '';
+    this.bookings = [... this.cache];
   }
 
   close(alert: any) {

@@ -11,21 +11,19 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core';
-import {
-    HttpClient, HttpHeaders, HttpParams,
-    HttpResponse, HttpEvent
-} from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
+import { Inject, Injectable, Optional }                      from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams,
+         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
-import { Observable } from 'rxjs';
+import { Observable }                                        from 'rxjs';
 
 import { BookingModel } from '../model/bookingModel';
 import { CheckoutModel } from '../model/checkoutModel';
 import { ReservationModel } from '../model/reservationModel';
 
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
-import { Configuration } from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
+import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
@@ -35,7 +33,7 @@ export class BookingService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -70,7 +68,7 @@ export class BookingService {
     public checkIn(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public checkIn(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public checkIn(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public checkIn(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public checkIn(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling checkIn.');
         }
@@ -110,7 +108,7 @@ export class BookingService {
     public checkout(model?: CheckoutModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public checkout(model?: CheckoutModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public checkout(model?: CheckoutModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public checkout(model?: CheckoutModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public checkout(model?: CheckoutModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -155,7 +153,7 @@ export class BookingService {
     public createBooking(model?: BookingModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public createBooking(model?: BookingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public createBooking(model?: BookingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createBooking(model?: BookingModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createBooking(model?: BookingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -200,7 +198,7 @@ export class BookingService {
     public createReservation(model?: ReservationModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public createReservation(model?: ReservationModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public createReservation(model?: ReservationModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createReservation(model?: ReservationModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createReservation(model?: ReservationModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -245,9 +243,9 @@ export class BookingService {
     public getBookings(date?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<BookingModel>>;
     public getBookings(date?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BookingModel>>>;
     public getBookings(date?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BookingModel>>>;
-    public getBookings(date?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getBookings(date?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (date !== undefined) {
             queryParameters = queryParameters.set('date', <any>date);
         }
@@ -281,6 +279,48 @@ export class BookingService {
     }
 
     /**
+     * Get bookings by checkout date
+     *
+     * @param date
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getBookingsIn(date: Date, observe?: 'body', reportProgress?: boolean): Observable<Array<BookingModel>>;
+    public getBookingsIn(date: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BookingModel>>>;
+    public getBookingsIn(date: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BookingModel>>>;
+    public getBookingsIn(date: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (date === null || date === undefined) {
+            throw new Error('Required parameter date was null or undefined when calling getBookingsIn.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<BookingModel>>(`${this.basePath}/api/Booking/${encodeURIComponent(String(date))}/in`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      *
      *
      * @param id
@@ -298,18 +338,18 @@ export class BookingService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
-        let consumes: string[] = [
+        const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/api/Booking/invoice/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.basePath}/api/Booking/${encodeURIComponent(String(id))}/invoice`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -329,7 +369,7 @@ export class BookingService {
     public updateBooking(model?: BookingModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public updateBooking(model?: BookingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public updateBooking(model?: BookingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public updateBooking(model?: BookingModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public updateBooking(model?: BookingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
