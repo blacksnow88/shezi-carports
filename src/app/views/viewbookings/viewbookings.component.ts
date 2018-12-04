@@ -102,9 +102,9 @@ export class ViewbookingsComponent implements OnInit {
     if (val) {
         // filter our data
     const temp = this.bookings.filter(function(d) {
-      return (d.registration && d.registration.toLowerCase().indexOf(val) !== -1) ||
-      (d.name && d.name.toLowerCase().indexOf(val) !== -1) ||
-      (d.surname && d.surname.toLowerCase().indexOf(val) !== -1) || !val;
+      return (d.registration && d.registration.toLowerCase().indexOf(val.toLowerCase()) !== -1) ||
+      (d.name && d.name.toLowerCase().indexOf(val.toLowerCase()) !== -1) ||
+      (d.surname && d.surname.toLowerCase().indexOf(val.toLowerCase()) !== -1) || !val;
     });
 
     // update the rows
