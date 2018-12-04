@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {NgbModule, NgbDateAdapter, NgbDateNativeAdapter, NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ApiModule, Configuration } from './Api_Module';
 import { NavbarComponent } from './views/navbar/navbar.component';
@@ -22,6 +22,10 @@ import { CreateBookingModalComponent } from './views/createBookingModal/create-b
 import { CheckOutBookingModalComponent } from './views/checkOutBookingModal/checkout-booking-modal.component';
 import { UserLoginComponent } from './views/user-login/user-login.component';
 import { HomeComponent } from './views/newreservation/home.component';
+import { AuthGuard } from './guards/auth.guard';
+import { JwtInterceptor } from './Api_Module/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './Api_Module/interceptors/error.interceptor';
+import { environment } from '../environments/environment';
 
 
 
@@ -54,12 +58,14 @@ import { HomeComponent } from './views/newreservation/home.component';
     NgbTimepickerModule,
     NgxDatatableModule
   ],
-  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}],
+  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}, AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 export const apiConfig = new Configuration({
-  basePath: 'https://carncierge-uat.azurewebsites.net',
+  basePath: environment.apiBase,
   withCredentials: false
 });
 export function getApiConfig() {
