@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { LoginModel } from '../model/loginModel';
+import { PasswordReset } from '../model/passwordReset';
 import { UserModel } from '../model/userModel';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -70,6 +71,11 @@ export class UsersService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
         ];
@@ -106,6 +112,11 @@ export class UsersService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
         ];
@@ -138,6 +149,46 @@ export class UsersService {
     }
 
     /**
+     *
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public cashout(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public cashout(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public cashout(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public cashout(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/api/Users/cashout`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * 
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -149,6 +200,11 @@ export class UsersService {
     public me(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -185,6 +241,11 @@ export class UsersService {
     public post(model?: UserModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -231,6 +292,11 @@ export class UsersService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
         ];
@@ -252,6 +318,56 @@ export class UsersService {
         }
 
         return this.httpClient.put<any>(`${this.basePath}/api/Users`,
+            model,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     *
+     *
+     * @param model
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public reset(model?: PasswordReset, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public reset(model?: PasswordReset, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public reset(model?: PasswordReset, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public reset(model?: PasswordReset, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/api/Users/reset`,
             model,
             {
                 withCredentials: this.configuration.withCredentials,

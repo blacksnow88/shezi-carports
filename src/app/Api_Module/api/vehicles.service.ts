@@ -75,6 +75,11 @@ export class VehiclesService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'text/plain',
@@ -113,6 +118,11 @@ export class VehiclesService {
     public post(model?: CreateVehicle, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -158,6 +168,11 @@ export class VehiclesService {
     public put(model?: UpdateVehicle, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        // if (this.configuration.apiKeys["Authorization"]) {
+        //     headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        // }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

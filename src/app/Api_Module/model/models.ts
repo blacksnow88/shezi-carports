@@ -5,6 +5,7 @@ export * from './createVehicle';
 export * from './findCustomerResult';
 export * from './getVehicleResult';
 export * from './loginModel';
+export * from './passwordReset';
 export * from './reservationModel';
 export * from './updateCustomer';
 export * from './updateVehicle';

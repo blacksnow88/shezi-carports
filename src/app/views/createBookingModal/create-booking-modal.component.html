@@ -1,10 +1,12 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success btn-sm" (click)="openLg(content)">Book</button>
+<button type="button" [class]="buttonClass" (click)="openLg(content)">{{buttonText}}</button>
 
 <!-- Modal -->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">New Booking for {{customer?.title}} {{customer?.name}} {{customer?.surname}}</h4>
+    <h4 class="modal-title" *ngIf="updateMode">Update Booking</h4>
+    <h4 class="modal-title" *ngIf="!updateMode">New Booking for {{customer?.title}} {{customer?.name}}
+      {{customer?.surname}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -12,183 +14,148 @@
   <div class="modal-body">
     <form #bookingForm="ngForm">
       <div class="form-group">
-          <div class="card">
-            <div class="card-header">
-              <span>Choose the dates for the Booking</span>
+        <div class="card">
+          <div class="card-header">
+            <span>Choose the dates for the Booking</span>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-4 col-md-6">
+                <div class="form-group mb-3">
+                  <label class="text-bold" name="basic-addon1">Check In Date *</label>
+                  <div class="input-group">
+                    <input class="form-control" required placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dropDate" type="date"
+                      ngbDatepicker container='body' [disabled]="updateMode && booking.status.toLowerCase() === 'checkedin'"
+                      #dp="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dp.toggle()" disabled="true"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6">
+                <div class="form-group mb-3">
+                  <label class="text-bold" name="basic-addon1">Time *</label>
+                  <div class="input-group">
+                    <select class="form-control" name="dropTime" required [(ngModel)]="dropTime" [disabled]="updateMode && booking.status.toLowerCase() === 'checkedin'"
+                      aria-describedby="basic-addon1">
+                      <option *ngFor="let time of times" [value]="time">{{(time > 9 ? '' + time : '0' + time) +
+                        ':00'}}</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="form-group mb-3">
+                  <label class="text-bold" name="basic-addon1">Check Out Date *</label>
+                  <div class="input-group">
+                    <input class="form-control" required placeholder="yyyy-mm-dd" name="dc" [(ngModel)]="collectionDate"
+                      type="date" ngbDatepicker container='' #dc="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" disabled="true"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6">
+                <div class="form-group mb-3">
+                  <label class="text-bold" name="basic-addon1">Time *</label>
+                  <div class="input-group">
+                    <select class="form-control" name="collectionTime" required [(ngModel)]="collectionTime"
+                      aria-describedby="basic-addon1">
+                      <option *ngFor="let time of times" [value]="time">{{(time > 9 ? '' + time : '0' + time) +
+                        ':00'}}</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
             </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-4 col-md-6">
-                  <div class="form-group mb-3">
-                    <label class="text-bold" name="basic-addon1">Drop Off Date *</label>
-                    <div class="input-group">
-                      <input class="form-control" required placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dropDate" type="date"
-                        ngbDatepicker container='body' #dp="ngbDatepicker">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dp.toggle()" disabled="true" type="button"></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                  <div class="form-group mb-3">
-                    <label class="text-bold" name="basic-addon1">Time *</label>
-                    <div class="input-group">
-                      <select class="form-control" name="dropTime" required [(ngModel)]="dropTime" 
-                        aria-describedby="basic-addon1">
-                        <option *ngFor="let time of times" [value]="time">{{(time > 9 ? '' + time : '0' + time) +
-                          ':00'}}</option>
-                      </select>
-                    </div>
 
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <div class="form-group mb-3">
-                    <label class="text-bold" name="basic-addon1">Collection Date *</label>
-                    <div class="input-group">
-                      <input class="form-control" required placeholder="yyyy-mm-dd" name="dc" [(ngModel)]="collectionDate" type="date"
-                        ngbDatepicker container='' #dc="ngbDatepicker">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" disabled="true" type="button"></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                  <div class="form-group mb-3">
-                    <label class="text-bold" name="basic-addon1">Time *</label>
-                    <div class="input-group">
-                      <select class="form-control" name="collectionTime" required [(ngModel)]="collectionTime"
-                         aria-describedby="basic-addon1">
-                        <option *ngFor="let time of times" [value]="time">{{(time > 9 ? '' + time : '0' + time) +
-                          ':00'}}</option>
-                      </select>
-                    </div>
-
-                  </div>
-                </div>
+            <div class="card col-12 mb-1">
+              <label class="text-bold" name="basic-addon1">Additional Services</label>
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default">
+                  <input type="radio" name="options" id="option0" autocomplete="off" checked [value]="null" [(ngModel)]="booking.service">
+                  None
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="options" id="option1" autocomplete="off" [value]="'Wash And Go'"
+                    [(ngModel)]="booking.service"> Wash And Go
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="options" id="option2" autocomplete="off" [value]="'Wash And Vacuum'"
+                    [(ngModel)]="booking.service"> Wash And Vacuum
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="options" id="option3" autocomplete="off" [value]="'Mini Valet'" [(ngModel)]="booking.service">
+                  Mini Valet
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="options" id="option3" autocomplete="off" [value]="'Full Valet'" [(ngModel)]="booking.service">
+                  Full Valet
+                </label>
               </div>
-
-            <div class="col-lg-12 col-md-12">
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default">
-                        <input type="radio" name="options" id="option0" autocomplete="off" checked [value]="''"
-                        [(ngModel)]="booking.service"> None
-                      </label>
-                    <label class="btn btn-default">
-                      <input type="radio" name="options" id="option1" autocomplete="off" [value]="'Wash And Go'"
-                      [(ngModel)]="booking.service"> Wash And Go
-                    </label>
-                    <label class="btn btn-default">
-                      <input type="radio" name="options" id="option2" autocomplete="off" [value]="'Wash And Vacuum'"
-                      [(ngModel)]="booking.service"> Wash And Vacuum
-                    </label>
-                    <label class="btn btn-default">
-                      <input type="radio" name="options" id="option3" autocomplete="off" [value]="'Mini Valet'"
-                      [(ngModel)]="booking.service"> Mini Valet
-                    </label>
-                    <label class="btn btn-default">
-                      <input type="radio" name="options" id="option3" autocomplete="off" [value]="'Full Valet'"
-                      [(ngModel)]="booking.service"> Full Valet
-                    </label>
-                  </div>
-              <!-- <div class="">
-                <div class="m-1">
-                  <input type="radio" class="custom-control-input" id="addservice0" name="addservice" checked [value]="''"
-                     [(ngModel)]="booking.service">
-                  <label class="custom-control-label" for="addservice1">None</label>
-                </div>
-                <div class="m-1">
-                  <input type="radio" class="custom-control-input" id="addservice1" name="addservice" [value]="'Wash And Go'"
-                     [(ngModel)]="booking.service">
-                  <label class="custom-control-label" for="addservice2">Wash & Go</label>
-                </div>
-                <div class="m-1">
-                  <input type="radio" class="custom-control-input" id="addservice2" name="addservice" [value]="'Wash And Vacuum'"
-                     [(ngModel)]="booking.service">
-                  <label class="custom-control-label" for="addservice2">Wash & Vacuum</label>
-                </div>
-                <div class="m-1">
-                  <input type="radio" class="custom-control-input" id="addservice3" name="addservice" [value]="'Mini Valet'"
-                     [(ngModel)]="booking.service">
-                  <label class="custom-control-label" for="addservice3">Mini Valet</label>
-                </div>
-                <div class="m-1">
-                  <input type="radio" class="custom-control-input" id="addservice4" name="addservice" [value]="'Full Valet'" 
-                    [(ngModel)]="booking.service" >
-                  <label class="custom-control-label" for="addservice4">Full Valet</label>
-                </div> 
-              </div>-->
             </div>
-            <!-- <div class="card col-lg-3 col-md-12">
-              <div class="card-header">
-                Payment Type
+            <div class="card col-l2">
+              <label class="text-bold" name="basic-addon1">Payment type</label>
+              <div class="btn-group" data-toggle="radio">
+                <label class="btn btn-default">
+                  <input type="radio" id="card" name="paymentType" [value]="'card'" [(ngModel)]="booking.paymentType"> Card
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" id="cash" name="paymentType" [value]="'cash'" [(ngModel)]="booking.paymentType"> Cash
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" id="voucher" name="paymentType" [value]="'voucher'" [(ngModel)]="booking.paymentType">
+                  Voucher
+                </label>
               </div>
-              <div class="card-body">
-                <div class="m-1">
-                  <input type="checkbox" class="custom-control-input" id="card" name="paymentMethod" [value]="'card'" 
-                    [(ngModel)]="paymentMethod">
-                  <label class="custom-control-label" for="card">Card</label>
-                </div>
-                <div class="m-1">
-                  <input type="checkbox" class="custom-control-input" id="cash" name="paymentMethod" [value]="'cash'" 
-                    [(ngModel)]="paymentMethod">
-                  <label class="custom-control-label" for="cash">Cash</label>
-                </div>
+              <div class="m-1" *ngIf="!!booking.paymentType && booking.paymentType === 'voucher'">
+                <label class="btn btn-default" for="voucherCount">
+                  <input type="number" id="voucherCount" name="voucherCount" required [(ngModel)]="booking.voucherCount">No. of
+                  Vouchers</label>
               </div>
-            </div> -->
+            </div>
             <div class=" col-lg-12 col-md-12">
               <div class="card-body">
                 <div class="form-group">
                   <div class="">
                     <span class="text-bold" name="baynumber">Bay Number</span>
                   </div>
-                  <input type="text" class="form-control" name="baynumber" aria-describedby="baynumber" [(ngModel)]="booking.bayNumber"
-                    >
+                  <input type="text" class="form-control" name="baynumber" aria-describedby="baynumber" [(ngModel)]="booking.bayNumber">
                 </div>
                 <div class="form-group">
                   <div class="">
                     <span class="text-bold" name="baynumber">Notes</span>
                   </div>
-                  <textarea type="text" class="form-control" name="notes" aria-describedby="notes"
-                  [(ngModel)]="booking.notes"></textarea>
+                  <textarea type="text" class="form-control" name="notes" aria-describedby="notes" [(ngModel)]="booking.notes"></textarea>
+                </div>
+                <div class="form-group" *ngIf="updateMode">
+                  <div class="">
+                    <span class="text-bold" name="baynumber">Status</span>
+                  </div>
+                  <input type="text" class="form-control" name="baynumber" aria-describedby="baynumber" readonly
+                    [value]="booking.status">
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-        <!-- <div class="card">
-          <div class="card-footer">
-            <div class="col-12 text-center">
-              <p class="lead">* = mandatory fields</p>
-              <p *ngIf="!!alert">
-                <ngb-alert [type]="alert.type" (close)="close(alert)">
-                  <pre>{{ alert.message }}</pre>
-                </ngb-alert>
-              </p>
-              <button class="book-now-btn m-2" *ngIf="!existing && !editMode"  (click)="onSubmit()"
-                type="submit">Book</button>
-              <button class="book-now-btn m-2" *ngIf="existing"  routerLink="/view/bookings">Back</button>
-              <button class="book-now-btn m-2" *ngIf="existing && !editMode && !booking.isComplete" 
-                (click)="editMode = true" type="submit">Edit</button>
-              <button class="book-now-btn m-2" *ngIf="existing && !editMode && !booking.isComplete" 
-                (click)="checkOut()" type="submit">Check Out</button>
-              <button class="book-now-btn m-2" *ngIf="existing && editMode && !booking.isComplete" 
-                (click)="updateBooking()" type="submit">Update</button>
-              <button class="book-now-btn m-2" *ngIf="existing && editMode && !booking.isComplete" 
-                (click)="editMode = false" type="submit">Cancel</button>
-            </div>
-          </div>
-        </div>-->
-      </div> 
+      </div>
 
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-    <button class="btn btn-success" [disabled]="bookingForm.invalid || loading"
-      (click)="onSubmit()" type="submit">{{loading ? 'Please wait..':'Create'}}</button>
+    <button class="btn btn-success" [disabled]="bookingForm.invalid || loading" *ngIf="!updateMode" (click)="createBooking()"
+      type="submit">{{loading
+      ? 'Please wait..':'Create'}}</button>
+    <button class="btn btn-success" [disabled]="bookingForm.invalid || loading" *ngIf="updateMode" (click)="updateBooking()"
+      type="submit">{{loading
+      ? 'Please wait..':'Update'}}</button>
   </div>
 </ng-template>

@@ -4,16 +4,18 @@
     <hr class="my-4">
     <div class="card">
       <div class="card-body">
-        <label class="text-bold" name="basic-addon1">Day Bookings</label>
+        <label class="text-bold" name="basic-addon1">Search booking</label>
         <div class="row">
-
-            <div class="input-group mb-3 col-lg-6 col-md-12">
+            <div class="input-group mb-1 col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <input class="form-control" required placeholder="reference or cellphone or registration" [(ngModel)]="searchStr" #searcher="ngModel" (keyup.enter)="viewBookings()">
+              </div>
+            <!-- <div class="input-group mb-3 col-lg-6 col-md-12">
               
               <input class="form-control" required placeholder="yyyy-mm-dd" name="dc" [(ngModel)]="searchDate" ngbDatepicker #dc="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dc.toggle()" type="button"></button>
               </div>
-            </div>
+            </div> -->
             <div class="col-lg-2 col-md-12">
               <button class="btn btn-success mb-1" type="button" [disabled]="loading" (click)="viewBookings()">{{loading ?
                 'loading...' : 'Search'}}</button>

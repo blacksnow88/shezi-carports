@@ -12,6 +12,7 @@
 
 
 export interface BookingModel {
+    voucherCount?: number;
     checkIn?: Date;
     checkout?: Date;
     vehicleId?: number;
@@ -28,4 +29,5 @@ export interface BookingModel {
     name?: string;
     surname?: string;
     registration?: string;
+    reference?: string;
 }

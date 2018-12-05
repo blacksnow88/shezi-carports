@@ -72,10 +72,13 @@
                                     <a routerLink="/login" routerLinkActive="active">Login</a>
                                 </li>
                                 <li class="nav-item m-2" *ngIf="isLoggegIn()">
-                                        <a routerLink="/home" routerLinkActive="active">Home</a>
-                                    </li>
+                                    <a routerLink="/home" routerLinkActive="active">Home</a>
+                                </li>
                                 <li class="nav-item m-2" *ngIf="isLoggegIn()">
-                                    <a routerLink="/view/bookings" routerLinkActive="active">Bookings</a>
+                                    <a routerLink="/search/bookings" routerLinkActive="active">Search Bookings</a>
+                                </li>
+                                <li class="nav-item m-2" *ngIf="isLoggegIn()">
+                                    <a routerLink="/view/bookings" routerLinkActive="active">Date Bookings</a>
                                 </li>
                                 <li class="nav-item m-2" *ngIf="isLoggegIn()">
                                     <a routerLink="/view/customers" routerLinkActive="active">Customers</a>

@@ -7,7 +7,7 @@
           <label class="text-bold" name="basic-addon1">Registraion or Cellphone</label>
           <div class="row">
               <div class="input-group mb-1 col-lg-6 col-md-8 col-sm-12 col-xs-12">
-                <input class="form-control text-uppercase" required placeholder="" [(ngModel)]="searchStr" #searcher="ngModel" (key.enter)="searchCustomers()">
+                <input class="form-control" required placeholder="" [(ngModel)]="searchStr" #searcher="ngModel" (keyup.enter)="searchCustomers()">
               </div>
               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <button class="btn btn-success mb-1 pull-left" type="button" [disabled]="searcher.invalid ||loadingSearch" (click)="searchCustomers()">{{loadingSearch ?
@@ -83,8 +83,8 @@
           <div class="col-12" *ngIf="selectedCustomer">
               <hr class="my-1">
               <span class="card card-header">Customer Vehicles</span>
-              <ngx-datatable class="bootstrap" [rows]="vehicles" [loadingIndicator]="loadingVehicles" [selected]="selectedVeh"
-              [selectionType]="'single'" (select)='onSelectVeh($event)'
+              <ngx-datatable class="bootstrap" [rows]="vehicles" [loadingIndicator]="loadingVehicles"
+              
                 [columns]="columns" [columnMode]="'flex'" [headerHeight]="40" [footerHeight]="40" [limit]="10" [rowHeight]="'auto'"
                 [reorderable]="reorderable">
     
@@ -115,7 +115,7 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="" prop="id" [flexGrow]="2" [sortable]="false">
                     <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                        <app-create-booking-modal [customer]="selectedCustomer" [vehicle]="row"></app-create-booking-modal>
+                        <app-create-booking-modal [buttonClass]="'btn btn-sucess btn-sm m-1'" [buttonText]="'Book'" [customer]="selectedCustomer" [vehicle]="row"></app-create-booking-modal>
                     </ng-template>
                   </ngx-datatable-column>
               </ngx-datatable>

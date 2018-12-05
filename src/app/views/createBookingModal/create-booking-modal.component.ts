@@ -14,8 +14,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CreateBookingModalComponent implements OnInit {
 
-  @Input() vehicle: GetVehicleResult;
-  @Input() customer: FindCustomerResult;
+  @Input() buttonText?: string;
+  @Input() buttonClass?: string;
+  @Input() vehicle?: GetVehicleResult;
+  @Input() customer?: FindCustomerResult;
+  @Input() bookingExisting?: BookingModel;
   booking: BookingModel;
 
   times: string[] = [];
@@ -29,10 +32,9 @@ export class CreateBookingModalComponent implements OnInit {
   dropTime: number;
   collectionTime: number;
 
-  existing: boolean;
-  editMode: boolean ;
+  updateMode: boolean ;
 
-  paymentMethod: string;
+
 
   constructor(private modalService: NgbModal, private bookingService: BookingService, private route: ActivatedRoute) {
   }
@@ -43,14 +45,29 @@ export class CreateBookingModalComponent implements OnInit {
     for (let t = 0; t < 24; t++) {
       this.times.push(t.toString());
     }
-    this.booking = {};
-    this.collectionDate = new Date();
-    this.dropDate = new Date();
-    this.collectionDate.setDate(this.collectionDate.getDate() + 1);
   }
 
   openLg(content) {
     this.modalService.open(content, { size: 'lg' });
+    if (!!this.bookingExisting && this.bookingExisting.bookingId > 0) {
+
+      this.booking = this.bookingExisting;
+      this.collectionDate = new Date(this.booking.checkout);
+      this.dropDate = new Date(this.booking.checkIn);
+      this.collectionTime = this.collectionDate.getHours();
+      this.dropTime = this.dropDate.getHours();
+      this.updateMode = true;
+    } else {
+      this.Init();
+      this.updateMode = false;
+    }
+  }
+
+  private Init() {
+    this.booking = {};
+    this.collectionDate = new Date();
+    this.dropDate = new Date();
+    this.collectionDate.setDate(this.collectionDate.getDate() + 1);
   }
 
   close(alert: any) {
@@ -72,7 +89,7 @@ export class CreateBookingModalComponent implements OnInit {
     return datestr;
   }
 
-  onSubmit() {
+  createBooking() {
     console.log('book data' + JSON.stringify(this.booking));
     this.alert = null;
     this.loading = true;
@@ -83,8 +100,30 @@ export class CreateBookingModalComponent implements OnInit {
     this.booking.vehicleId = this.vehicle.id;
     this.bookingService.createBooking(this.booking).subscribe(resp => {
       this.loading = false;
-      const booking: Booking = resp.body;
+      // const booking: Booking = resp.body;
       alert('Booking Captured!');
+      this.modalService.dismissAll();
+    },
+      error => {
+        this.loading = false;
+        alert('Something went wrong please try again later!');
+        this.alert = { type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`' };
+        console.log('error:' + JSON.stringify(error));
+      });
+  }
+
+  updateBooking() {
+    console.log('book data' + JSON.stringify(this.booking));
+    this.alert = null;
+    this.loading = true;
+    this.booking.checkIn = this.dropDate;
+    this.booking.checkout = this.collectionDate;
+    this.booking.checkIn.setHours(this.dropTime, 0, 0, 0);
+    this.booking.checkout.setHours(this.collectionTime, 0, 0, 0);
+    this.bookingService.updateBooking(this.booking).subscribe(resp => {
+      this.loading = false;
+      // const booking: Booking = resp.body;
+      alert('Booking Updated!');
       this.modalService.dismissAll();
     },
       error => {
@@ -101,7 +140,7 @@ export class CreateBookingModalComponent implements OnInit {
       console.log('checkout data' + JSON.stringify(this.booking));
       this.alert = null;
       this.loading = true;
-      this.bookingService.checkout({id: this.booking.bookingId, paymentMethod: this.paymentMethod}).subscribe(resp => {
+      this.bookingService.checkout({id: this.booking.bookingId, paymentMethod: this.booking.paymentType}).subscribe(resp => {
         alert('Checkout Complete, see details!');
         this.alert = { type: 'success', message: 'Checkout Complete! \n DAYS: ' + resp.days + '\n HOURS:'
         + resp.hours + '\n PRICE: R ' + resp.price  };
@@ -114,24 +153,5 @@ export class CreateBookingModalComponent implements OnInit {
           console.log('error:' + JSON.stringify(error));
         });
     }
-  }
-
-  updateBooking() {
-    console.log('book data' + JSON.stringify(this.booking));
-    this.alert = null;
-    this.loading = true;
-    this.bookingService.updateBooking(this.booking).subscribe(resp => {
-      this.loading = false;
-      const booking: Booking = resp.body;
-      alert('Booking Updated!');
-      this.alert = { type: 'success', message: 'Booking Updated! \n* Booking number: ' + booking.vehicleId +
-       '\n* Duration: ' + booking.duration };
-    },
-      error => {
-        this.loading = false;
-        alert('Something went wrong please try again later!');
-        this.alert = { type: 'danger', message: 'Something went wrong please try again later. `-' + JSON.stringify(error.error) + '`' };
-        console.log('error:' + JSON.stringify(error));
-      });
   }
 }

@@ -16,7 +16,7 @@ export class CheckOutBookingModalComponent implements OnInit {
 
   @Input() booking: BookingModel;
   @Output() success: EventEmitter<any> = new EventEmitter();
-  paymentMethod: string;
+
   loading: boolean;
 
   constructor(private modalService: NgbModal, private bookingService: BookingService, private route: ActivatedRoute) {
@@ -29,7 +29,7 @@ export class CheckOutBookingModalComponent implements OnInit {
 
   openLg(content) {
     this.modalService.open(content, { size: 'lg' });
-    this.paymentMethod = '';
+    console.log('checkout data' + JSON.stringify(this.booking));
   }
 
   close(alert: any) {
@@ -40,7 +40,7 @@ export class CheckOutBookingModalComponent implements OnInit {
   checkout() {
     console.log('checkout data' + JSON.stringify(this.booking));
     this.loading = true;
-    this.bookingService.checkout({ id: this.booking.bookingId, paymentMethod: this.paymentMethod }).subscribe(resp => {
+    this.bookingService.checkout({ id: this.booking.bookingId, paymentMethod: this.booking.paymentType}).subscribe(resp => {
       this.loading = false;
       alert('Checkout Complete');
       this.modalService.dismissAll();

@@ -6,17 +6,17 @@ import { MediatorService } from 'src/app/services/mediator.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
-  selector: 'app-viewbookings',
-  templateUrl: './viewbookings.component.html'
+  selector: 'app-searchbookings',
+  templateUrl: './searchbookings.component.html'
 })
-export class ViewbookingsComponent implements OnInit {
+export class SearchbookingsComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
   filtervalue;
 
   bookings: BookingModel[] = [];
   cache: BookingModel[] = [];
-  searchDate: Date;
+  searchStr: string;
   alert: any;
   loading: boolean;
 
@@ -25,14 +25,14 @@ export class ViewbookingsComponent implements OnInit {
   constructor(private bookingService: BookingService, private mediator: MediatorService, private router: Router) { }
 
   ngOnInit() {
-    this.searchDate = new Date();
-    this.viewBookings();
+    // this.searchStr = new Date();
+    // this.viewBookings();
   }
 
   viewBookings(): void {
     this.loading = true;
-    console.log('Searching: ' + this.searchDate);
-    this.bookingService.getBookings(this.dateToString(this.searchDate)).subscribe( resp => {
+    console.log('Searching: ' + this.searchStr);
+    this.bookingService.getAction(this.searchStr).subscribe( resp => {
       this.loading = false;
       this.cache = [ ... resp];
       this.bookings = [ ... resp]

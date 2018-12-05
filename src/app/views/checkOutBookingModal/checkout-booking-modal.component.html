@@ -14,16 +14,26 @@
       <div class="form-group">
         <div class="card">
           <div class="col-lg-12 col-md-12">
-            <div class="btn-group" data-toggle="buttons">
+              <label class="text-bold" name="basic-addon1">Payment type</label>
+            <div class="btn-group" data-toggle="radio">
               <label class="btn btn-default">
-                <input type="radio" required name="options" id="option0" autocomplete="off" [value]="'cash'" [(ngModel)]="paymentMethod">
+                <input type="radio" required name="paymentType" id="option0"  value="cash" [(ngModel)]="booking.paymentType">
                 Cash
               </label>
               <label class="btn btn-default">
-                <input type="radio" required name="options" id="option1" autocomplete="off" [value]="'card'" [(ngModel)]="paymentMethod">
+                <input type="radio" required name="paymentType" id="option1" value="card" [(ngModel)]="booking.paymentType">
                 Debit/Credit Card
               </label>
+              <label class="btn btn-default">
+                  <input type="radio" required name="paymentType" id="option2" value="voucher" [(ngModel)]="booking.paymentType">
+                  Voucher
+                </label>
             </div>
+            <div class="m-1" *ngIf="!!booking.paymentType && booking.paymentType === 'voucher'">
+                <label class="btn btn-default" for="voucherCount">
+                  <input type="number" id="voucherCount" name="voucherCount" required [(ngModel)]="booking.voucherCount">No. of
+                  Vouchers</label>
+              </div>
           </div>
         </div>
       </div>

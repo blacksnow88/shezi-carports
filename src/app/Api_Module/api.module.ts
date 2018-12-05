@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Configuration } from './configuration';
 
 import { BookingService } from './api/booking.service';
@@ -22,9 +22,8 @@ export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {
         return {
             ngModule: ApiModule,
-            providers: [ { provide: Configuration, useFactory: configurationFactory }
-                 ]
-        };
+            providers: [ { provide: Configuration, useFactory: configurationFactory } ]
+        }
     }
 
     constructor( @Optional() @SkipSelf() parentModule: ApiModule) {

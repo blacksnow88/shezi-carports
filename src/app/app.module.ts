@@ -21,11 +21,12 @@ import { CreateCustomerModalComponent } from './views/createCustomerModal/create
 import { CreateBookingModalComponent } from './views/createBookingModal/create-booking-modal.component';
 import { CheckOutBookingModalComponent } from './views/checkOutBookingModal/checkout-booking-modal.component';
 import { UserLoginComponent } from './views/user-login/user-login.component';
-import { HomeComponent } from './views/newreservation/home.component';
+import { HomeComponent } from './views/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptor } from './Api_Module/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './Api_Module/interceptors/error.interceptor';
 import { environment } from '../environments/environment';
+import { SearchbookingsComponent } from './views/searchbookings/searchbookings.component';
 
 
 
@@ -44,7 +45,8 @@ import { environment } from '../environments/environment';
     NewCustomerDetailsComponent,
     CheckOutBookingModalComponent,
     UserLoginComponent,
-    HomeComponent
+    HomeComponent,
+    SearchbookingsComponent
   ],
   imports: [
     BrowserModule,
